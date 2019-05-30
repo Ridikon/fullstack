@@ -1,0 +1,71 @@
+<div class="page-title">
+	<h4>
+		Огляд за вчора ({{yesterday | date:'dd.MM.yyyy'}})
+		<i class="material-icons black-text pointer" (click)="openInfo()">info_outline</i>
+	</h4>
+</div>
+
+<div
+	*ngIf="data$ | async as data; else loader"
+	class="row">
+	<div class="col s12 l6">
+		<div class="card light-blue lighten-2 white-text">
+			<div class="card-content">
+				<span class="card-title">Виручка:</span>
+				<h3>{{data.gain.yesterday}} грн.</h3>
+				<h3
+					[ngClass]="{
+						'green-text text-darken-2': data.gain.isHigher,
+						'red-text': !data.gain.isHigher
+					}"
+					class="m0 mb1">
+					<i class="material-icons">{{data.gain.isHigher ? 'arrow_upward' : 'arrow_downward'}}</i>
+					{{data.gain.percent}}%
+				</h3>
+				<p>
+					Виручка вашого бізнесу вчора на
+					{{data.gain.percent}}%
+					{{data.gain.isHigher ? 'вище' : 'нижче'}}
+					середнього:
+					{{data.gain.compare}}
+					грн. в день
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="col s12 l6">
+		<div class="card orange lighten-2 white-text">
+			<div class="card-content">
+				<span class="card-title">Замовлення:</span>
+				<h3>{{data.orders.yesterday}} зам.</h3>
+				<h3
+					[ngClass]="{
+						'green-text text-darken-2': data.orders.isHigher,
+						'red-text': !data.orders.isHigher
+					}"
+					class="m0 mb1">
+					<i class="material-icons">{{data.orders.isHigher ? 'arrow_upward' : 'arrow_downward'}}</i>
+					{{data.orders.percent}}%
+				</h3>
+				<p>
+					Число замовлень вчора на
+					{{data.orders.percent}}%
+					{{data.orders.isHigher ? 'вище' : 'нижче'}}
+					середнього значення: {{data.orders.compare}} зам. в день
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #loader>
+	<app-loader></app-loader>
+</ng-template>
+
+<div class="tap-target" data-target="menu" #tapTarget>
+	<div class="tap-target-content">
+		<h5>Навіщо потрібна ця сторінка?</h5>
+		<p>Сторінка "Огляд" покаже динаміку продажів за попередній день. Порівняння з середнім значеннями допоможе вам зрозуміти, як йдуть справи у Вашого бізнесу.</p>
+	</div>
+</div>

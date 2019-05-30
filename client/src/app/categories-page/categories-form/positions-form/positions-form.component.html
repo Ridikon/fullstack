@@ -1,0 +1,93 @@
+<div class="row">
+	<div class="col s12">
+		<div class="page-subtitle">
+			<h4>Позиції:</h4>
+			<button
+				(click)="onAddPosition()"
+				class="waves-effect waves-light btn grey darken-1 btn-small">
+				Добавити позицію
+			</button>
+		</div>
+
+		<div *ngIf="!loading; else loader">
+			<div
+				*ngIf="(positions || []).length; else empty"
+				class="collection">
+				<a
+					*ngFor="let position of positions"
+					(click)="onSelectPosition(position)"
+					class="collection-item collection-item-icon">
+					<span>
+						{{position.name}} <strong>{{position.cost}} грн.</strong>
+					</span>
+
+					<span>
+						<i
+							(click)="onDeletePosition($event, position)"
+							class="material-icons">delete</i>
+					</span>
+				</a>
+			</div>
+
+			<ng-template #empty>
+				<h4 class="center">Немає жодної позиції в цій категорії</h4>
+			</ng-template>
+		</div>
+
+		<ng-template #loader>
+			<app-loader></app-loader>
+		</ng-template>
+	</div>
+</div>
+
+<form [formGroup]="form"
+	  (ngSubmit)="onSubmit()">
+	<div class="modal" #modal>
+		<div class="modal-content">
+			<h4 class="mb1">Добавити позицію</h4>
+			<div class="input-field">
+				<input
+					formControlName="name"
+					[ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"
+					id="pos-name"
+					type="text">
+				<label for="pos-name">Назва</label>
+				<span
+					*ngIf="form.get('name').invalid && form.get('name').touched"
+					class="helper-text red-text">
+					Назва не повинна бути порожньою.
+				</span>
+			</div>
+			<div class="input-field">
+				<input
+					formControlName="cost"
+					[ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}"
+					id="pos-cost"
+					type="number"
+					min="1">
+				<label for="pos-cost">Ціна</label>
+				<span
+					*ngIf="form.get('cost').invalid && form.get('cost').touched"
+					class="helper-text red-text">
+					Введіть коректну ціну. Мінімальне значення 1.
+				</span>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button
+				type="button"
+				[disabled]="form.disabled"
+				(click)="onCancel()"
+				class="modal-action waves-effect waves-black btn-flat">
+				Відміна
+			</button>
+			<button
+				type="submit"
+				[disabled]="form.invalid || form.disabled"
+				class="modal-action btn waves-effect">
+				Зберегти
+			</button>
+		</div>
+	</div>
+</form>
+
