@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea6eabed-7919-4de0-b833-4871859bc08f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/keys.dev.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="ea6eabed-7919-4de0-b833-4871859bc08f" name="Default Changelist" comment="translated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,61 +12,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="10" lean-forward="true" selection-start-line="2" selection-start-column="10" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/keys.dev.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="34">
+              <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/index.html">
+        <entry file="file://$PROJECT_DIR$/config/keys.prod.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="34">
+              <caret line="2" column="24" lean-forward="true" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/.editorconfig">
+        <entry file="file://$PROJECT_DIR$/config/keys.js">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/.gitignore">
+        <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+            <state relative-caret-position="158">
+              <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -88,7 +68,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/src/app/shared/components/loader/loader.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/categories-page/categories-page.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/categories-page/categories-form/categories-form.component.scss" />
         <option value="$PROJECT_DIR$/middleware/upload.js" />
@@ -121,7 +100,6 @@
         <option value="$PROJECT_DIR$/controllers/analitics.js" />
         <option value="$PROJECT_DIR$/middleware/passport.js" />
         <option value="$PROJECT_DIR$/client/src/app/shared/classes/material.service.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/overview-page/overview-page.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/overview-page/overview-page.component.html" />
         <option value="$PROJECT_DIR$/controllers/analytics.js" />
@@ -132,13 +110,15 @@
         <option value="$PROJECT_DIR$/client/src/app/analytics-page/analytics-page.component.ts" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/config/keys.dev.js" />
         <option value="$PROJECT_DIR$/config/keys.prod.js" />
-        <option value="$PROJECT_DIR$/config/keys.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/client/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/client/src/index.html" />
+        <option value="$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.html" />
+        <option value="$PROJECT_DIR$/client/src/app/shared/layouts/auth-layout/auth-layout.component.html" />
+        <option value="$PROJECT_DIR$/config/keys.js" />
+        <option value="$PROJECT_DIR$/config/keys.dev.js" />
       </list>
     </option>
   </component>
@@ -174,6 +154,17 @@
               <item name="fullstack" type="b2602c69:ProjectViewProjectNode" />
               <item name="fullstack" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fullstack" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fullstack" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fullstack" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fullstack" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -226,20 +217,29 @@
       <updated>1557825322053</updated>
       <workItem from="1557825323267" duration="33290000" />
       <workItem from="1558335254166" duration="72539000" />
-      <workItem from="1558939549331" duration="57960000" />
+      <workItem from="1558939549331" duration="60383000" />
+      <workItem from="1559286235878" duration="1865000" />
     </task>
+    <task id="LOCAL-00001" summary="translated">
+      <created>1559226983325</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1559226983325</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="163789000" />
+    <option name="totallyTimeSpent" value="168077000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14658849" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14818764" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.4171181" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -250,9 +250,10 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32936078" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.2979415" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2979415" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="TypeScript" order="12" />
+      <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -266,56 +267,10 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/client" />
     </ignored-roots>
+    <MESSAGE value="translated" />
+    <option name="LAST_COMMIT_MESSAGE" value="translated" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/app/login-page/login-page.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="51" selection-start-line="51" selection-end-line="51" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/order-page/order-categories/order-categories.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/order-page/order-positions/order-positions.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/order-page/order-positions/order-positions.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/errorHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="30" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/order.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -496,13 +451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="38" column="101" selection-start-line="38" selection-start-column="101" selection-end-line="38" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/overview-page/overview-page.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
@@ -565,13 +513,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html" />
     <entry file="file://$PROJECT_DIR$/client/src/app/analytics-page/analytics-page.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -582,34 +524,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/dist/client/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/keys.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/keys.prod.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="35" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/client/dist/client/index.html" />
     <entry file="file://$PROJECT_DIR$/client/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -648,10 +563,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/keys.dev.js">
+    <entry file="file://$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="84" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/shared/layouts/auth-layout/auth-layout.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/environments/environment.prod.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/environments/environment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/proxy.conf.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/test.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/keys.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/keys.prod.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="24" lean-forward="true" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/keys.dev.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
         </state>
       </provider>
     </entry>
