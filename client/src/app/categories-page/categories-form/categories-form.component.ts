@@ -25,7 +25,8 @@ export class CategoriesFormComponent implements OnInit {
 		private fb: FormBuilder,
 		private categoriesService: CategoriesService,
 		private router: Router
-	) {}
+	) {
+	}
 
 	ngOnInit() {
 		this.form = this.fb.group({
@@ -96,16 +97,20 @@ export class CategoriesFormComponent implements OnInit {
 		this.form.disable();
 
 		if (this.isNew) {
-			obs$ = this.categoriesService.create(this.form.value.name, this.image)
+			obs$ = this.categoriesService.create(this.form.value.name, this.image);
 		} else {
-			obs$ = this.categoriesService.update(this.category._id, this.form.value.name, this.image)
+			obs$ = this.categoriesService.update(this.category._id, this.form.value.name, this.image);
 		}
 
 		obs$.subscribe(
 			category => {
 				this.category = category;
-				MaterialService.toast('Зміни збережені.')
+				MaterialService.toast('Зміни збережені.');
 				this.form.enable();
+
+				if (this.isNew) {
+					this.router.navigate([`/categories/${this.category._id}`]);
+				}
 			},
 			error => {
 				MaterialService.toast(error.error.message);
