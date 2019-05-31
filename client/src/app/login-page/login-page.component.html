@@ -14,7 +14,7 @@
 			<label for="email">Email:</label>
 			<span class="helper-text red-text"
 				  *ngIf="form.get('email').invalid && form.get('email').touched">
-				<span *ngIf="form.get('email').errors['required']">Поле email не повинено бути порожнім.</span>
+				<span *ngIf="form.get('email').errors['required']">Поле email не повинно бути порожнім.</span>
 				<span *ngIf="form.get('email').errors['email']">Введіть коректний email.</span>
 			</span>
 		</div>
