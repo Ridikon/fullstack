@@ -14,6 +14,7 @@ import {MaterialService} from "../shared/classes/material.service";
 export class LoginPageComponent implements OnInit, OnDestroy {
 	form: FormGroup;
 	aSub: Subscription;
+	loader = false;
 
 	constructor(
 		private fb: FormBuilder,
@@ -49,6 +50,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
 	onSubmit() {
 		this.form.disable();
+		this.loader = true;
 
 		this.aSub = this.auth.login(this.form.value).subscribe(
 			() => {
@@ -58,7 +60,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 			error => {
 				MaterialService.toast(error.error.message);
 				this.form.enable();
-			}
+			},
+			() => this.loader = false
 		);
 	}
 

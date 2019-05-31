@@ -13,7 +13,7 @@
 				[ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}">
 			<label for="email">Email:</label>
 			<span class="helper-text red-text"
-				*ngIf="form.get('email').invalid && form.get('email').touched">
+				  *ngIf="form.get('email').invalid && form.get('email').touched">
 				<span *ngIf="form.get('email').errors['required']">Поле email не повинено бути порожнім.</span>
 				<span *ngIf="form.get('email').errors['email']">Введіть коректний email.</span>
 			</span>
@@ -29,8 +29,10 @@
 				class="helper-text red-text"
 				*ngIf="form.get('password').invalid && form.get('password').touched">
 				<span *ngIf="form.get('password').errors['required']">Поле пароля не повинно бути порожнім.</span>
-				<span *ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">
-					Пароль повинен бути рівним або більшим ніж {{form.get('password').errors['minlength']['requiredLength']}} символів.
+				<span
+					*ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">
+					Пароль повинен бути рівним або більшим ніж {{form.get('password').errors['minlength']['requiredLength']}}
+					символів.
 					Зараз {{form.get('password').errors['minlength']['actualLength']}}.
 				</span>
 			</span>
@@ -44,3 +46,6 @@
 		</button>
 	</div>
 </form>
+
+<app-loader *ngIf="loader"></app-loader>
+
