@@ -66,6 +66,8 @@
 	</div>
 </div>
 
+<app-loader *ngIf="pending"></app-loader>
+
 <app-positions-form
 	*ngIf="category?._id"
 	[categoryId]="category._id">

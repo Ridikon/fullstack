@@ -1,9 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoriesService} from "../../shared/services/categories.service";
 import {switchMap} from "rxjs/operators";
 import {of} from "rxjs";
+
+import {CategoriesService} from "../../shared/services/categories.service";
 import {MaterialService} from "../../shared/classes/material.service";
 import {Category} from "../../shared/interfaces";
 
@@ -19,6 +20,7 @@ export class CategoriesFormComponent implements OnInit {
 	imagePreview: any;
 	isNew = true;
 	category: Category;
+	pending = false;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -94,6 +96,8 @@ export class CategoriesFormComponent implements OnInit {
 
 	onSubmit() {
 		let obs$;
+
+		this.pending = true;
 		this.form.disable();
 
 		if (this.isNew) {
@@ -104,6 +108,7 @@ export class CategoriesFormComponent implements OnInit {
 
 		obs$.subscribe(
 			category => {
+				this.pending = false;
 				this.category = category;
 				MaterialService.toast('Зміни збережені.');
 				this.form.enable();
@@ -113,6 +118,7 @@ export class CategoriesFormComponent implements OnInit {
 				}
 			},
 			error => {
+				this.pending = false;
 				MaterialService.toast(error.error.message);
 				this.form.enable();
 			}

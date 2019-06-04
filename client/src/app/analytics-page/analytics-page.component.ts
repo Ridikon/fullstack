@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AnalyticsService} from "../shared/services/analytics.service";
 import {AnalyticsPage} from "../shared/interfaces";
 import {Subscription} from "rxjs";
@@ -9,7 +9,7 @@ import {Chart} from 'chart.js';
 	templateUrl: './analytics-page.component.html',
 	styleUrls: ['./analytics-page.component.scss']
 })
-export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
+export class AnalyticsPageComponent implements AfterViewInit, OnInit, OnDestroy {
 	@ViewChild('gain') gainRef: ElementRef;
 	@ViewChild('order') orderRef: ElementRef;
 
@@ -18,6 +18,10 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 	pending = true;
 
 	constructor(private service: AnalyticsService) {
+	}
+
+	ngOnInit(): void {
+		this.pending = true;
 	}
 
 	ngAfterViewInit() {

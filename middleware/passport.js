@@ -10,7 +10,6 @@ const options = {
 };
 
 module.exports = passport => {
-    console.log('1111')
     passport.use(
         new JwtStrategy(options, async (payload, done) => {
             try {

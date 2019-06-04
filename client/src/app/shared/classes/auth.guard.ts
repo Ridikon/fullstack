@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 				queryParams: {
 					accessDenied: true
 				}
-			})
+			});
 
 			return of(false);
 		}
