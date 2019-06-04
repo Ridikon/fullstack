@@ -6,12 +6,6 @@ import {AuthLayoutComponent} from "./shared/layouts/auth-layout/auth-layout.comp
 import {SiteLayoutComponent} from "./shared/layouts/site-layout/site-layout.component";
 import {RegisterPageComponent} from "./register-page/register-page.component";
 import {AuthGuard} from "./shared/classes/auth.guard";
-import {OverviewPageComponent} from "./overview-page/overview-page.component";
-import {HistoryPageComponent} from "./history-page/history-page.component";
-import {OrderPageComponent} from "./order-page/order-page.component";
-import {CategoriesFormComponent} from "./categories-page/categories-form/categories-form.component";
-import {OrderCategoriesComponent} from "./order-page/order-categories/order-categories.component";
-import {OrderPositionsComponent} from "./order-page/order-positions/order-positions.component";
 
 const routes: Routes = [
 	{
@@ -28,16 +22,11 @@ const routes: Routes = [
 		component: SiteLayoutComponent,
 		canActivate: [AuthGuard],
 		children: [
-			{path: 'overview', component: OverviewPageComponent},
+			{path: 'overview', loadChildren: './overview-page/overview.module#OverviewModule'},
 			{path: 'analytics', loadChildren: './analytics-page/analytics.module#AnalyticsModule'},
-			{path: 'history', component: HistoryPageComponent},
-			{path: 'order', component: OrderPageComponent, children: [
-					{path: '', component: OrderCategoriesComponent},
-					{path: ':id', component: OrderPositionsComponent}
-				]},
-			{path: 'categories', loadChildren: './categories-page/categories.module#CategoriesModule'},
-			{path: 'categories/new', component: CategoriesFormComponent},
-			{path: 'categories/:id', component: CategoriesFormComponent}
+			{path: 'history', loadChildren: './history-page/history.module#HistoryModule'},
+			{path: 'order', loadChildren: './order-page/order.module#OrderModule'},
+			{path: 'categories', loadChildren: './categories-page/categories.module#CategoriesModule'}
 		]
 	}
 ];
