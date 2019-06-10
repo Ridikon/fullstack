@@ -10,6 +10,10 @@ export interface Category {
 	_id?: string
 }
 
+export interface Categories {
+	categories: Category[]
+}
+
 export interface Message {
 	message: string
 }

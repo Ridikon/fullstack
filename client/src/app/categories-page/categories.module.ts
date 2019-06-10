@@ -21,7 +21,7 @@ import {CategoriesListComponent} from "./categories-list/categories-list.compone
 		ReactiveFormsModule,
 		SharedModule,
 		CommonModule,
-		CategoriesRoutingModule,
+		CategoriesRoutingModule
 	]
 })
 export class CategoriesModule {}
