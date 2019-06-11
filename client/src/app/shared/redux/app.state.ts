@@ -1,4 +1,4 @@
-import {Categories, Category} from "../interfaces";
+import {Categories} from "../interfaces";
 
 export interface AppState {
 	categoriesPage: {

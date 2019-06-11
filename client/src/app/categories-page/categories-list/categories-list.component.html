@@ -11,7 +11,7 @@
 	<div class="col s12">
 		<div class="collection" *ngIf="(categories || []).length; else empty">
 			<a
-				*ngFor="let category of categories$ | async"
+				*ngFor="let category of categories"
 				routerLinkActive="active"
 				[routerLink]="['/categories', category._id]"
 				class="collection-item">

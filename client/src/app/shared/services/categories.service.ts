@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
 
@@ -8,7 +8,7 @@ import {Categories, Category} from "../interfaces";
 import {Message} from "../interfaces";
 import {AppState} from "../redux/app.state";
 import {AddCategory, DeleteCategory, GetCategories, UpdateCategory} from "../redux/categories/categories.action";
-import {map, shareReplay, tap} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
 import {MaterialService} from "../classes/material.service";
 
 @Injectable({
@@ -18,15 +18,16 @@ export class CategoriesService {
 	constructor(private http: HttpClient, private store: Store<AppState>, private router: Router) {
 	}
 
-	fetch(): Observable<Categories> {
+	fetch(): Observable<Categories | null> {
 		return this.http.get<Categories>('/api/category')
 			.pipe(
-				tap(response => {
-					this.store.dispatch(new GetCategories(response.categories))
+				map(response => {
+					this.store.dispatch(new GetCategories(response.categories));
+					return response
 				}),
-				shareReplay(),
-				map(categories => {
-					return categories
+				catchError(error => {
+					MaterialService.toast(error.error.message);
+					return of(null)
 				})
 			)
 	}
