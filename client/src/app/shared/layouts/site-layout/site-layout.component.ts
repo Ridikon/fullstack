@@ -50,7 +50,9 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.sidebarInstance.destroy();
+		if (this.sidebarInstance) {
+			this.sidebarInstance.destroy();
+		}
 	}
 
 	getCompanyName(): string {
