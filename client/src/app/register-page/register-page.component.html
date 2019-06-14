@@ -7,6 +7,18 @@
 		<span class="card-title">Створити акаунт</span>
 		<div class="input-field">
 			<input
+				formControlName="name"
+				id="name"
+				type="text"
+				[ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
+			<label for="name">Назва організації:</label>
+			<span class="helper-text red-text"
+				  *ngIf="form.get('name').invalid && form.get('name').touched">
+				<span *ngIf="form.get('name').errors['required']">Це поле не повинно бути порожнім.</span>
+			</span>
+		</div>
+		<div class="input-field">
+			<input
 				formControlName="email"
 				id="email"
 				type="email"

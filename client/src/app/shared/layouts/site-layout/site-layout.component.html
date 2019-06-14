@@ -1,5 +1,5 @@
-<ul class="sidenav sidenav-fixed a-sidenav">
-	<h4>Menu</h4>
+<ul class="sidenav sidenav-fixed a-sidenav" *ngIf="isDesktopWidth; else mobileMenu">
+	<h4>{{companyName}}</h4>
 	<li
 		class="bold"
 		*ngFor="let link of links"
@@ -13,6 +13,26 @@
 		<a href="#" class="waves-effect waves-orange" (click)="logout($event)">Вийти</a>
 	</li>
 </ul>
+
+<ng-template #mobileMenu>
+	<ul id="slide-out" class="sidenav" #sidebar>
+		<a class="sidenav-close waves-effect waves-teal btn-flat"><i class="material-icons">close</i></a>
+		<h4>{{companyName}}</h4>
+		<li
+			class="bold"
+			*ngFor="let link of links"
+			routerLinkActive="active">
+			<a [routerLink]="[link.url]" (click)="closeSidebar()" class="waves-effect waves-orange">
+				{{link.name}}
+			</a>
+		</li>
+
+		<li class="bold last">
+			<a href="#" class="waves-effect waves-orange" (click)="logout($event)">Вийти</a>
+		</li>
+	</ul>
+	<a data-target="slide-out" class="sidenav-trigger waves-effect waves-teal btn-flat" (click)="openSidebar()"><i class="material-icons">menu</i></a>
+</ng-template>
 
 <main class="content">
 	<router-outlet></router-outlet>

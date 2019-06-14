@@ -13,11 +13,13 @@ module.exports.login = async function (req, res) {
         if (passwordResult) {
             // Generate token, passwords is compared
             const token = jwt.sign({
+                name: candidate.name,
                 email: candidate.email,
                 userId: candidate._id
             }, keys.jwt, {expiresIn: 60 * 60});
 
             res.status(200).json({
+                name: candidate.name,
                 token: `Bearer ${token}`
             })
         } else {
@@ -47,6 +49,7 @@ module.exports.register = async function (req, res) {
         const salt = bcrypt.genSaltSync(10);
         const password = req.body.password;
         const user =  new User({
+            name: req.body.name,
             email: req.body.email,
             password: bcrypt.hashSync(password, salt)
         });

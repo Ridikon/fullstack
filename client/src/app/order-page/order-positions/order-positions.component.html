@@ -1,7 +1,7 @@
 <div *ngIf="positions$ | async as positions; else loader">
 	<table
 		*ngIf="(positions || []).length; else empty"
-		class="highlight">
+		class="highlight responsive-table">
 		<thead>
 		<tr>
 			<th>Назва</th>

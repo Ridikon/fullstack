@@ -1,2 +1,22 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "theme/styles.min.css";
+
+@media only screen and (max-width : 992px) {
+	.page-title, .page-subtitle {
+		flex-direction: column;
+
+		button {
+			margin: 20px 0;
+		}
+
+		h4 {
+			text-align: center;
+		}
+	}
+
+	.auth-block {
+		.card {
+			width: 300px;
+		}
+	}
+}

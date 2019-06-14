@@ -18,11 +18,11 @@ export class CategoriesService {
 	constructor(private http: HttpClient, private store: Store<AppState>, private router: Router) {
 	}
 
-	fetch(): Observable<Categories | null> {
-		return this.http.get<Categories>('/api/category')
+	fetch(): Observable<Category[] | null> {
+		return this.http.get<Category[]>('/api/category')
 			.pipe(
 				map(response => {
-					this.store.dispatch(new GetCategories(response.categories));
+					this.store.dispatch(new GetCategories(response));
 					return response
 				}),
 				catchError(error => {

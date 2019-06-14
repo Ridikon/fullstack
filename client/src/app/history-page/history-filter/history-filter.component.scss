@@ -1,0 +1,20 @@
+@media only screen and (max-width : 992px) {
+	.fr {
+		flex-direction: column;
+
+		.input-field.inline {
+			margin-left: 0;
+		}
+
+		.col.filter-pickers {
+			padding: 0;
+			width: 100%;
+			display: block;
+
+			.input-field {
+				margin-top: 20px !important;
+				margin-bottom: 20px !important;
+			}
+		}
+	}
+}

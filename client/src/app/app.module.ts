@@ -14,6 +14,7 @@ import {RegisterPageComponent} from './register-page/register-page.component';
 import {TokenInterceptor} from "./shared/classes/token.interceptor";
 import {SharedModule} from "./shared/shared.module";
 import {categoriesReducer} from "./shared/redux/categories/categories.reducer";
+import {userReducer} from "./shared/redux/user/user.reducer";
 
 @NgModule({
 	declarations: [
@@ -30,8 +31,12 @@ import {categoriesReducer} from "./shared/redux/categories/categories.reducer";
 		ReactiveFormsModule,
 		HttpClientModule,
 		SharedModule,
-		StoreModule.forRoot({}),
-		StoreModule.forFeature('categoriesPage', categoriesReducer),
+		StoreModule.forRoot({
+			categoriesPage: categoriesReducer,
+			userPage: userReducer
+		}),
+		// StoreModule.forFeature('categoriesPage', categoriesReducer),
+		// StoreModule.forFeature('userPage', userReducer),
 		StoreDevtoolsModule.instrument({
 			maxAge: 10
 		})

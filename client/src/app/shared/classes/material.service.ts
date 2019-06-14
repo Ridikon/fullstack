@@ -25,6 +25,10 @@ export class MaterialService {
 		M.updateTextFields();
 	}
 
+	static initSidebar(ref: ElementRef): MaterialInstance {
+		return M.Sidenav.init(ref.nativeElement);
+	}
+
 	static initModal(ref: ElementRef): MaterialInstance {
 		return M.Modal.init(ref.nativeElement);
 	}

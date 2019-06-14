@@ -9,7 +9,7 @@ export function categoriesReducer(state = initialState, action: CategoryActions)
 		case CATEGORY_ACTION.GET_CATEGORIES:
 			return {
 				...state,
-				categories: [...action.payload]
+				categories: action.payload
 			};
 		case CATEGORY_ACTION.ADD_CATEGORY:
 			return {

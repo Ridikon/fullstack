@@ -1,0 +1,20 @@
+header, main, footer {
+	margin-left: 0;
+	padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+	header, main, footer {
+		padding-left: 30px;
+	}
+
+	.sidenav {
+		h4 {
+			padding: 0 32px;
+		}
+	}
+
+	#menu {
+		display: none;
+	}
+}
