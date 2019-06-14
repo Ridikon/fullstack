@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 
 import {CategoriesService} from "../../shared/services/categories.service";
-import {Categories} from "../../shared/interfaces";
+import {Category} from "../../shared/interfaces";
 
 @Component({
 	selector: 'app-order-categories',
@@ -10,7 +10,7 @@ import {Categories} from "../../shared/interfaces";
 	styleUrls: ['./order-categories.component.scss']
 })
 export class OrderCategoriesComponent implements OnInit {
-	categories$: Observable<Categories>;
+	categories$: Observable<Category[]>;
 
 	constructor(private categoriesService: CategoriesService) {
 	}

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 
-import {Categories} from "../../shared/interfaces";
+import {Category} from "../../shared/interfaces";
 import {CategoriesService} from "../../shared/services/categories.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {CategoriesService} from "../../shared/services/categories.service";
 	styleUrls: ['./categories-list.component.scss']
 })
 export class CategoriesListComponent implements OnInit {
-	categories$: Observable<Categories>;
+	categories$: Observable<Category[]>;
 
 	constructor(private categoriesService: CategoriesService) {
 	}
