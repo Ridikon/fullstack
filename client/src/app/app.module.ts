@@ -35,8 +35,6 @@ import {userReducer} from "./shared/redux/user/user.reducer";
 			categoriesPage: categoriesReducer,
 			userPage: userReducer
 		}),
-		// StoreModule.forFeature('categoriesPage', categoriesReducer),
-		// StoreModule.forFeature('userPage', userReducer),
 		StoreDevtoolsModule.instrument({
 			maxAge: 10
 		})

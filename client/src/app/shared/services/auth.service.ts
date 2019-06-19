@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {tap} from "rxjs/operators";
 
 import {User} from '../interfaces';
@@ -14,6 +14,8 @@ import {SetUser} from "../redux/user/user.action";
 export class AuthService {
 	private token = null;
 
+	permission = new BehaviorSubject(localStorage.getItem('permission'));
+
 	constructor(private http: HttpClient, private store: Store<AppState>) {
 	}
 
@@ -21,13 +23,16 @@ export class AuthService {
 		return this.http.post<User>('/api/auth/register', user);
 	}
 
-	login(user: User): Observable<{token: string, name: string}> {
-		return this.http.post<{token: string, name: string}>('/api/auth/login', user)
+	login(user: User): Observable<User> {
+		return this.http.post<User>('/api/auth/login', user)
 			.pipe(
 				tap(
-					({token, name}) => {
-						this.store.dispatch(new SetUser({name}));
+					({permission, token, _id: userId, name}) => {
+						this.permission.next(permission);
+						// this.store.dispatch(new SetUser({permission, token, userId, name}));
 						localStorage.setItem('auth-token', token);
+						localStorage.setItem('permission', permission);
+						localStorage.setItem('auth-id', userId);
 						localStorage.setItem('company-name', name);
 						this.setToken(token);
 					}

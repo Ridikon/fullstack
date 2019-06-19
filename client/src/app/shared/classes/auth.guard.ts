@@ -1,12 +1,20 @@
-import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from "@angular/router";
+import {
+	ActivatedRouteSnapshot,
+	CanActivate,
+	CanActivateChild,
+	CanLoad,
+	Router,
+	RouterStateSnapshot
+} from "@angular/router";
 import {Observable, of} from "rxjs";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../services/auth.service";
+import {MaterialService} from "./material.service";
 
 @Injectable({
 	providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 	constructor(private auth: AuthService, private router: Router) {
 
 	}
@@ -25,6 +33,24 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		return this.canActivate(route, state)
+		return of(this.hasPermission())
+	}
+
+	canLoad(): Observable<boolean> | Promise<boolean> | boolean {
+		if (this.auth.permission.getValue() === 'super') {
+			return true;
+		}
+
+		this.router.navigate(['overview']);
+	}
+
+	hasPermission(): boolean {
+		if (this.auth.permission.getValue() === 'super' || this.auth.permission.getValue() === 'admin') {
+			return true;
+		}
+
+		MaterialService.toast('У Вас немає прав на перегляд цієї сторінки!')
+
+		this.router.navigate(['overview']);
 	}
 }

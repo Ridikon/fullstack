@@ -26,7 +26,8 @@ const routes: Routes = [
 			{path: 'analytics', loadChildren: './analytics-page/analytics.module#AnalyticsModule'},
 			{path: 'history', loadChildren: './history-page/history.module#HistoryModule'},
 			{path: 'order', loadChildren: './order-page/order.module#OrderModule'},
-			{path: 'categories', loadChildren: './categories-page/categories.module#CategoriesModule'}
+			{path: 'categories', loadChildren: './categories-page/categories.module#CategoriesModule'},
+			{path: 'users', loadChildren: './users-page/users.module#UsersModule', canLoad: [AuthGuard]}
 		]
 	}
 ];

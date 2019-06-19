@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 const authRoutes = require('./routes/auth');
+const usersRoutes = require('./routes/users');
 const analyticsRoutes = require('./routes/analytics');
 const categoryRoutes = require('./routes/category');
 const orderRoutes = require('./routes/order');
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 app.use(require('cors')());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users', usersRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/order', orderRoutes);

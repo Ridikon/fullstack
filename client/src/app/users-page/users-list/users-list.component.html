@@ -1,0 +1,65 @@
+<div *ngIf="(users || []).length; else loader">
+	<table class="highlight responsive-table mb2">
+		<thead>
+		<tr>
+			<th>№</th>
+			<th>Назва</th>
+			<th>Email</th>
+			<th>Дозвіл</th>
+			<th></th>
+		</tr>
+		</thead>
+
+		<tbody>
+		<tr *ngFor="let user of users; let index = index">
+			<td>{{index + 1}}</td>
+			<td>{{user.name}}</td>
+			<td>{{user.email}}</td>
+			<td>{{user.permission}}</td>
+			<td>
+				<button
+					(click)="selectUser(user)"
+					class="btn btn-small modal-trigger grey darken-1">
+					<i class="material-icons">open_in_new</i>
+				</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<div #modal class="modal modal-fixed-footer">
+	<div class="modal-content" *ngIf="selectedUser">
+		<h4>Змінити дозволи користувача:</h4>
+		<form>
+			<p>
+				<label>
+					<input [(ngModel)]="permission" value="basic" type="radio" [ngModelOptions]="{standalone: true}"/>
+					<span>Без дозволу</span>
+				</label>
+			</p>
+			<p>
+				<label>
+					<input [(ngModel)]="permission" value="admin" type="radio" [ngModelOptions]="{standalone: true}"/>
+					<span>Адміністратор</span>
+				</label>
+			</p>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button
+			(click)="saveUser()"
+			class="modal-action waves-effect waves-black btn-flat">
+			Зберегти
+		</button>
+		<button
+			(click)="closeModal()"
+			class="modal-action waves-effect waves-black btn-flat">
+			Закрити
+		</button>
+	</div>
+</div>
+
+<ng-template #loader>
+	<app-loader></app-loader>
+</ng-template>

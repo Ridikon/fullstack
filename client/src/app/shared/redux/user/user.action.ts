@@ -1,5 +1,5 @@
 import {Action} from "@ngrx/store";
-import {StoredUser} from "../../interfaces";
+import {StoredUser, User} from "../../interfaces";
 
 export namespace USER_ACTION {
 	export const SET_USER = 'SET_USER'
@@ -8,7 +8,7 @@ export namespace USER_ACTION {
 export class SetUser implements Action {
 	readonly type = USER_ACTION.SET_USER;
 
-	constructor(public payload: StoredUser) {
+	constructor(public payload: User) {
 	}
 }
 

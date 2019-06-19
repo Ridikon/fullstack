@@ -38,7 +38,9 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.isDesktopWidth = this.isDesktop();
 		this.companyName = this.getCompanyName();
-
+		if (this.auth.permission.getValue() === 'super') {
+			this.links.push({url: '/users', name: 'Користувачі'})
+		}
 	}
 
 	ngAfterViewInit(): void {

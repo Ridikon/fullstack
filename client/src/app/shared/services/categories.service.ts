@@ -4,7 +4,7 @@ import {Observable, of} from "rxjs";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
 
-import {Categories, Category} from "../interfaces";
+import {Category} from "../interfaces";
 import {Message} from "../interfaces";
 import {AppState} from "../redux/app.state";
 import {AddCategory, DeleteCategory, GetCategories, UpdateCategory} from "../redux/categories/categories.action";
