@@ -2,7 +2,7 @@ import {
 	ActivatedRouteSnapshot,
 	CanActivate,
 	CanActivateChild,
-	CanLoad,
+	CanLoad, Params,
 	Router,
 	RouterStateSnapshot
 } from "@angular/router";
@@ -33,7 +33,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 	}
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-		return of(this.hasPermission())
+		const url = state.url;
+
+		return of(this.hasPermission(url))
 	}
 
 	canLoad(): Observable<boolean> | Promise<boolean> | boolean {
@@ -44,13 +46,21 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 		this.router.navigate(['overview']);
 	}
 
-	hasPermission(): boolean {
-		if (this.auth.permission.getValue() === 'super' || this.auth.permission.getValue() === 'admin') {
+	hasPermission(url: string): boolean {
+		if (this.auth.permission.getValue() !== 'basic' && this.hasAccessToCategories(url)) {
 			return true;
 		}
 
-		MaterialService.toast('У Вас немає прав на перегляд цієї сторінки!')
+		MaterialService.toast('У Вас немає прав на перегляд цієї сторінки!');
 
 		this.router.navigate(['overview']);
+	}
+
+	hasAccessToCategories(url) {
+		if (url === '/categories' && this.auth.permission.getValue() === 'user') {
+			return false;
+		}
+
+		return true;
 	}
 }

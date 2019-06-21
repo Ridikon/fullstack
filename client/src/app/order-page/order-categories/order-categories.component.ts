@@ -1,22 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component} from '@angular/core';
 
-import {CategoriesService} from "../../shared/services/categories.service";
-import {Category} from "../../shared/interfaces";
+import {select, State} from "@ngrx/store";
+import {AppState} from "../../shared/redux/app.state";
 
 @Component({
 	selector: 'app-order-categories',
 	templateUrl: './order-categories.component.html',
 	styleUrls: ['./order-categories.component.scss']
 })
-export class OrderCategoriesComponent implements OnInit {
-	categories$: Observable<Category[]>;
+export class OrderCategoriesComponent {
+	categories$ = this.state.pipe(select('categoriesPage'));
 
-	constructor(private categoriesService: CategoriesService) {
+	constructor(private state: State<AppState>) {
 	}
-
-	ngOnInit() {
-		this.categories$ = this.categoriesService.fetch();
-	}
-
 }

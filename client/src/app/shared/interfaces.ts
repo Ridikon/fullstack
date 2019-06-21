@@ -1,18 +1,15 @@
 export interface User {
 	email: string;
-	password: string;
+	password?: string;
 	name?: string;
 	permission?: string;
 	_id?: string;
+	userId?: string,
 	token?: string;
 }
 
 export interface Users {
 	users: User[]
-}
-
-export interface StoredUser {
-	name: string;
 }
 
 export interface Category {

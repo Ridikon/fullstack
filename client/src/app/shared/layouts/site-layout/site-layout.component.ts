@@ -5,11 +5,14 @@ import {
 	ViewChild
 } from '@angular/core';
 import {Router} from "@angular/router";
-import {State} from "@ngrx/store";
 
 import {AuthService} from "../../services/auth.service";
 import {MaterialInstance, MaterialService} from "../../classes/material.service";
+import {select, State} from "@ngrx/store";
 import {AppState} from "../../redux/app.state";
+import {switchMap} from "rxjs/operators";
+import {UsersService} from "../../services/users.service";
+import {CategoriesService} from "../../services/categories.service";
 
 @Component({
 	selector: 'app-site-layout',
@@ -22,24 +25,43 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 
 	sidebarInstance: MaterialInstance;
 	isDesktopWidth: boolean;
-	companyName: string;
+	user$ = this.state.pipe(select('userPage'));
 
 	links = [
+		{url: '/profile', name: 'Профіль'},
 		{url: '/overview', name: 'Огляд'},
 		{url: '/analytics', name: 'Аналітика'},
 		{url: '/history', name: 'Історія'},
 		{url: '/order', name: 'Добавлення замовлення'},
-		{url: '/categories', name: 'Ассортимент'}
 	];
 
-	constructor(private auth: AuthService, private router: Router, private state: State<AppState>) {
+	constructor(
+		private auth: AuthService,
+		private router: Router,
+		private state: State<AppState>,
+		private usersService: UsersService,
+		private categoriesService: CategoriesService) {
 	}
 
 	ngOnInit(): void {
+		const userId = localStorage.getItem('auth-id');
+
 		this.isDesktopWidth = this.isDesktop();
-		this.companyName = this.getCompanyName();
+
+		if (this.auth.permission.getValue() !== 'user') {
+			this.links.push({url: '/categories', name: 'Ассортимент'})
+		}
+
 		if (this.auth.permission.getValue() === 'super') {
 			this.links.push({url: '/users', name: 'Користувачі'})
+		}
+
+		if (userId !== null) {
+			this.usersService.getById(userId)
+				.pipe(
+					switchMap(() => this.categoriesService.fetch())
+				)
+				.subscribe();
 		}
 	}
 
@@ -55,16 +77,6 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 		if (this.sidebarInstance) {
 			this.sidebarInstance.destroy();
 		}
-	}
-
-	getCompanyName(): string {
-		let name = localStorage.getItem('company-name');
-
-		if (name === 'undefined') {
-			name = 'Menu'
-		}
-
-		return name;
 	}
 
 	isDesktop(): boolean {

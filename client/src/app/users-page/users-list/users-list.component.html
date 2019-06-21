@@ -1,3 +1,7 @@
+<div class="page-title">
+	<h4>Список користувачів</h4>
+</div>
+
 <div *ngIf="(users || []).length; else loader">
 	<table class="highlight responsive-table mb2">
 		<thead>
@@ -36,6 +40,12 @@
 				<label>
 					<input [(ngModel)]="permission" value="basic" type="radio" [ngModelOptions]="{standalone: true}"/>
 					<span>Без дозволу</span>
+				</label>
+			</p>
+			<p>
+				<label>
+					<input [(ngModel)]="permission" value="user" type="radio" [ngModelOptions]="{standalone: true}"/>
+					<span>Користувач</span>
 				</label>
 			</p>
 			<p>

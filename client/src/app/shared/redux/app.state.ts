@@ -1,10 +1,10 @@
-import {Categories, StoredUser} from "../interfaces";
+import {Categories, User} from "../interfaces";
 
 export interface AppState {
 	categoriesPage: {
 		categories: Categories
 	},
 	userPage: {
-		user: StoredUser
+		user: User
 	}
 }

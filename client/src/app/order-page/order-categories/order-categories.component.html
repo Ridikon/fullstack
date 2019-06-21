@@ -1,4 +1,4 @@
-<div *ngIf="categories$ | async as categories; else loader">
+<div *ngIf="(categories$ | async)?.categories as categories; else loader">
 	<div
 		*ngIf="(categories || []).length; else empty"
 		class="frow order-row">

@@ -27,7 +27,8 @@ const routes: Routes = [
 			{path: 'history', loadChildren: './history-page/history.module#HistoryModule'},
 			{path: 'order', loadChildren: './order-page/order.module#OrderModule'},
 			{path: 'categories', loadChildren: './categories-page/categories.module#CategoriesModule'},
-			{path: 'users', loadChildren: './users-page/users.module#UsersModule', canLoad: [AuthGuard]}
+			{path: 'users', loadChildren: './users-page/users.module#UsersModule', canLoad: [AuthGuard]},
+			{path: 'profile', loadChildren: './profile-page/profile.module#ProfileModule'}
 		]
 	}
 ];

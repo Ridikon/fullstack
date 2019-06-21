@@ -1,0 +1,54 @@
+<div class="page-title">
+	<h4>Профіль</h4>
+</div>
+
+<form>
+	<div class="row">
+		<form class="col s12 l6" [formGroup]="form" (ngSubmit)="onSubmit()">
+			<div class="row">
+				<div class="input-field col s12 l6">
+					<i class="material-icons prefix">account_circle</i>
+					<input
+						formControlName="name"
+						[ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"
+						id="icon_prefix"
+						type="text"
+						class="validate">
+					<label for="icon_prefix">Назва організації</label>
+
+					<span
+						*ngIf="form.get('name').invalid && form.get('name').touched"
+						class="helper-text red-text">
+						<span *ngIf="form.get('name').errors['required']">
+							Поле з назвою категорії не може бути порожнім.
+						</span>
+					</span>
+				</div>
+				<div class="input-field col s12 l6">
+					<i class="material-icons prefix">email</i>
+					<input
+						formControlName="email"
+						[ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}"
+						id="icon_email"
+						type="email"
+						class="validate">
+					<label for="icon_email">Email</label>
+					<span class="helper-text red-text"
+						  *ngIf="form.get('email').invalid && form.get('email').touched">
+						<span *ngIf="form.get('email').errors['required']">Поле email не повинно бути порожнім.</span>
+						<span *ngIf="form.get('email').errors['email']">Введіть коректний email.</span>
+					</span>
+				</div>
+			</div>
+
+			<div>
+				<button
+					type="submit"
+					[disabled]="form.invalid || form.disabled"
+					class="waves-effect waves-light btn">
+					Зберегти зміни
+				</button>
+			</div>
+		</form>
+	</div>
+</form>

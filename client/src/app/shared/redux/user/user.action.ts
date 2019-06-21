@@ -1,8 +1,8 @@
 import {Action} from "@ngrx/store";
-import {StoredUser, User} from "../../interfaces";
+import {User} from "../../interfaces";
 
 export namespace USER_ACTION {
-	export const SET_USER = 'SET_USER'
+	export const SET_USER = 'SET_USER';
 }
 
 export class SetUser implements Action {

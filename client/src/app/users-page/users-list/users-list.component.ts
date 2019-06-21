@@ -12,7 +12,6 @@ import {AuthService} from "../../shared/services/auth.service";
 })
 export class UsersListComponent implements OnInit {
 	@ViewChild('modal') modalRef: ElementRef;
-
 	users: User[];
 	modal: MaterialInstance;
 	selectedUser: User;
@@ -44,12 +43,8 @@ export class UsersListComponent implements OnInit {
 
 	saveUser() {
 		this.selectedUser.permission = this.permission;
-		this.usersService.update(this.selectedUser)
-			.subscribe(user => {
-				MaterialService.toast('Зміни збережені');
-				this.modal.close();
-			},
-				error => MaterialService.toast(error.error.massage));
+		this.usersService.update(this.selectedUser);
+		this.modal.close();
 	}
 
 	closeModal() {

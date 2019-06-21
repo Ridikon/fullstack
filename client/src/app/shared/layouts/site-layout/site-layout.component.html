@@ -1,5 +1,5 @@
 <ul class="sidenav sidenav-fixed a-sidenav" *ngIf="isDesktopWidth; else mobileMenu">
-	<h4>{{companyName}}</h4>
+	<h4>{{(user$ | async)?.user.name}}</h4>
 	<li
 		class="bold"
 		*ngFor="let link of links"
@@ -17,7 +17,7 @@
 <ng-template #mobileMenu>
 	<ul id="slide-out" class="sidenav" #sidebar>
 		<a class="sidenav-close waves-effect waves-teal btn-flat"><i class="material-icons">close</i></a>
-		<h4>{{companyName}}</h4>
+		<h4>{{(user$ | async)?.user.name}}</h4>
 		<li
 			class="bold"
 			*ngFor="let link of links"

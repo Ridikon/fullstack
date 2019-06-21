@@ -1,30 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component} from '@angular/core';
 
-import {Category} from "../../shared/interfaces";
-import {CategoriesService} from "../../shared/services/categories.service";
-import {AuthService} from "../../shared/services/auth.service";
+import {select, State} from "@ngrx/store";
+import {AppState} from "../../shared/redux/app.state";
 
 @Component({
 	selector: 'app-categories-list',
 	templateUrl: './categories-list.component.html',
 	styleUrls: ['./categories-list.component.scss']
 })
-export class CategoriesListComponent implements OnInit {
-	categories$: Observable<Category[]>;
+export class CategoriesListComponent {
+	categories$ = this.state.pipe(select('categoriesPage'));
 
-	constructor(private categoriesService: CategoriesService, private auth: AuthService) {
-	}
-
-	ngOnInit() {
-		this.categories$ = this.categoriesService.fetch();
-	}
-
-	hasPermission(): boolean {
-		if (this.auth.permission.getValue() === 'super' || this.auth.permission.getValue() === 'admin') {
-			return true;
-		}
-
-		return false;
+	constructor(private state: State<AppState>) {
 	}
 }
