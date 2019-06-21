@@ -28,7 +28,6 @@ export class AuthService {
 			.pipe(
 				tap(
 					(response) => {
-						console.log('response', response)
 						this.permission.next(response.permission);
 						this.store.dispatch(new SetUser(response));
 						localStorage.setItem('auth-token', response.token);
