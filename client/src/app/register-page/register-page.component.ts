@@ -23,11 +23,6 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 		private wsService: WebsocketService
 	) {}
 
-	wsAction() {
-		console.log('1111')
-		// this.wsService.newUserEvent('sraka')
-	}
-
 	ngOnDestroy(): void {
 		if (this.aSub) {
 			this.aSub.unsubscribe();
