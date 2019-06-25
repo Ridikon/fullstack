@@ -7,6 +7,7 @@ import {User} from '../interfaces';
 import {Store} from "@ngrx/store";
 import {AppState} from "../redux/app.state";
 import {SetUser} from "../redux/user/user.action";
+import {WebsocketService} from "./websocket.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -16,11 +17,16 @@ export class AuthService {
 
 	permission = new BehaviorSubject(localStorage.getItem('permission'));
 
-	constructor(private http: HttpClient, private store: Store<AppState>) {
+	constructor(private http: HttpClient, private store: Store<AppState>, private wsService: WebsocketService) {
 	}
 
 	register(user: User): Observable<User> {
-		return this.http.post<User>('/api/auth/register', user);
+		return this.http.post<User>('/api/auth/register', user)
+			.pipe(
+				tap((newUser) => {
+					this.wsService.newUserEvent(newUser)
+				})
+			);
 	}
 
 	login(user: User): Observable<User> {

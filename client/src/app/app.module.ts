@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -15,6 +16,9 @@ import {TokenInterceptor} from "./shared/classes/token.interceptor";
 import {SharedModule} from "./shared/shared.module";
 import {categoriesReducer} from "./shared/redux/categories/categories.reducer";
 import {userReducer} from "./shared/redux/user/user.reducer";
+import {environment} from "../environments/environment";
+
+const config: SocketIoConfig = { url: environment.ws_url, options: {} };
 
 @NgModule({
 	declarations: [
@@ -37,7 +41,8 @@ import {userReducer} from "./shared/redux/user/user.reducer";
 		}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 10
-		})
+		}),
+		SocketIoModule.forRoot(config)
 	],
 	providers: [
 		{
