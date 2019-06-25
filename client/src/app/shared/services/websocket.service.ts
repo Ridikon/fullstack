@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
-import { Socket } from 'ngx-socket-io';
+import {Socket} from 'ngx-socket-io';
 import {User} from "../interfaces";
 
 @Injectable({
 	providedIn: "root"
 })
 export class WebsocketService {
-	constructor(private socket: Socket) {}
+	constructor(private socket: Socket) {
+	}
 
 	newUserEvent(user: User) {
 		this.socket.emit('message', {name: user.name})

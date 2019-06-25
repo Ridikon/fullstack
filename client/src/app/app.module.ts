@@ -18,7 +18,10 @@ import {categoriesReducer} from "./shared/redux/categories/categories.reducer";
 import {userReducer} from "./shared/redux/user/user.reducer";
 import {environment} from "../environments/environment";
 
-const config: SocketIoConfig = { url: environment.ws_url, options: {} };
+const config: SocketIoConfig = {
+	url: environment.production ? 'https://cryptic-dusk-46189.herokuapp.com/' : 'http://localhost:5000',
+	options: {}
+};
 
 @NgModule({
 	declarations: [
