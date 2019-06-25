@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {OrderPosition, Position} from "../shared/interfaces";
-import {reduce} from "rxjs/operators";
 
 @Injectable()
 export class OrderService {
