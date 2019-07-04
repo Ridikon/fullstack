@@ -12,6 +12,21 @@ export interface Users {
 	users: User[]
 }
 
+export interface Conversation {
+	conversationId: string;
+	body: string;
+	conversationName?: string;
+	conversationRecipient: string;
+	createdAt: string;
+	updatedAt: string;
+	author: string | {
+		name: string;
+		_id: string;
+	};
+	_id: string;
+	__v?: number;
+}
+
 export interface Category {
 	name: string;
 	imageSrc?: string;

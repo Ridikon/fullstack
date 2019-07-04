@@ -1,0 +1,88 @@
+<div class="page-title">
+	<h4>Чат</h4>
+</div>
+
+<div class="chat card-panel">
+	<div class="chat-user-list">
+		<a class="btn-floating" (click)="openModal()"><i class="material-icons">add</i></a>
+		<div class="collection with-header">
+			<div class="collection-header"><h5>Чати</h5></div>
+			<div
+				class="collection-wrapper"
+				*ngFor="let conversation of conversations$ | async">
+				<a
+					class="collection-item"
+					(click)="selectConversation(conversation)"
+					[ngClass]="{active: isActive(conversation) && conversation.conversationAuthor === chatName}"
+				>
+					{{conversation.conversationAuthor}}
+				</a>
+				<span class="chat-remove" (click)="deleteConversation(conversation)"><i class="material-icons">delete_forever</i></span>
+			</div>
+
+
+			<a
+				*ngIf="selectedUser"
+				class="collection-item"
+				(click)="selectConversation(selectedUser)"
+				[ngClass]="{active: selectedUser.name === chatName}"
+			>
+				{{selectedUser.name}}
+			</a>
+		</div>
+	</div>
+
+	<div class="chat-content">
+		<div class="chat-header">
+			<p>{{chatName ? chatName : 'Виберіть чат'}}</p>
+		</div>
+		<div class="messages">
+			<p
+				class="message"
+				*ngFor="let message of messages"
+				[ngClass]="{'my-message': message.myMessage}"
+			>
+				<span [ngClass]="message.myMessage ? 'light-blue' : 'red'">{{message.body}}</span>
+			</p>
+		</div>
+		<div class="text-field">
+			<div class="input-field">
+				<i class="material-icons prefix">mode_edit</i>
+				<textarea
+					id="icon_prefix2"
+					class="materialize-textarea"
+					[(ngModel)]="message"
+					[ngModelOptions]="{standalone: true}"
+				></textarea>
+				<label for="icon_prefix2">Повідомлення</label>
+			</div>
+
+			<button
+				class="btn waves-effect waves-light"
+				type="button"
+				(click)="onSend()"
+			>Відправити
+				<i class="material-icons right">send</i>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="modal" #modal>
+	<div class="row">
+		<div class="col s12">
+			<div class="collection with-header">
+				<div class="collection-header"><h5>Користувачі</h5></div>
+				<a
+					class="collection-item"
+					*ngFor="let user of users$ | async"
+					(click)="selectUser(user)"
+				>
+					{{user.name}}
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+

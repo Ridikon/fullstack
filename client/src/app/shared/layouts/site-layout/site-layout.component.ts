@@ -56,6 +56,8 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 			this.links.push({url: '/users', name: 'Користувачі'})
 		}
 
+		this.links.push({url: '/chat', name: 'Чат'});
+
 		if (userId !== null) {
 			this.usersService.getById(userId)
 				.pipe(

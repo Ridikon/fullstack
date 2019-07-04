@@ -43,7 +43,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 			return true;
 		}
 
+		MaterialService.toast('У Вас немає прав на перегляд цієї сторінки!');
+
 		this.router.navigate(['overview']);
+
+		return false;
 	}
 
 	hasPermission(url: string): boolean {
@@ -54,10 +58,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 		MaterialService.toast('У Вас немає прав на перегляд цієї сторінки!');
 
 		this.router.navigate(['overview']);
+
+		return false;
 	}
 
 	hasAccessToCategories(url) {
 		if (url === '/categories' && this.auth.permission.getValue() === 'user') {
+			return false;
+		}
+
+		if (url === '/chat' && this.auth.permission.getValue() === 'basic') {
 			return false;
 		}
 

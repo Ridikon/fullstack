@@ -9,8 +9,11 @@ const analyticsRoutes = require('./routes/analytics');
 const categoryRoutes = require('./routes/category');
 const orderRoutes = require('./routes/order');
 const positionRoutes = require('./routes/position');
+const chatRoutes = require('./routes/chat');
 const keys = require('./config/keys');
 const app = express();
+
+mongoose.set('useFindAndModify', false);
 
 mongoose.connect(keys.mongoURI, { useCreateIndex: true, useNewUrlParser: true });
 
@@ -36,6 +39,7 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/position', positionRoutes);
+app.use('/api/chat', chatRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist/client'));

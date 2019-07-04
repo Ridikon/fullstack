@@ -38,7 +38,6 @@ module.exports.remove = async function (req, res) {
 };
 
 module.exports.create = async function (req, res) {
-
     try {
         let imgLink = '';
 

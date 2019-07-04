@@ -28,7 +28,8 @@ const routes: Routes = [
 			{path: 'order', loadChildren: './order-page/order.module#OrderModule'},
 			{path: 'categories', loadChildren: './categories-page/categories.module#CategoriesModule'},
 			{path: 'users', loadChildren: './users-page/users.module#UsersModule', canLoad: [AuthGuard]},
-			{path: 'profile', loadChildren: './profile-page/profile.module#ProfileModule'}
+			{path: 'profile', loadChildren: './profile-page/profile.module#ProfileModule'},
+			{path: 'chat', loadChildren: './chat-page/chat.module#ChatModule'}
 		]
 	}
 ];

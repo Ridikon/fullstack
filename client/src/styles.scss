@@ -1,6 +1,10 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "theme/styles.min.css";
 
+html, body {
+	height: 100%;
+}
+
 @media only screen and (max-width : 992px) {
 	.page-title, .page-subtitle {
 		flex-direction: column;
