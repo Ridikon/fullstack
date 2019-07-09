@@ -19,8 +19,14 @@ const MessageSchema = new Schema({
             required: true
         },
         conversationAuthor: {
-            type: String,
-            required: true
+            id: {
+                type: String,
+                required: true
+            },
+            name: {
+                type: String,
+                required: true
+            }
         },
         conversationRecipient: {
             type: String,

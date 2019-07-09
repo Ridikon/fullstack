@@ -13,7 +13,11 @@ io.on('connection', function(socket){
         console.log("Socket disconnected: " + socket.id);
     });
 
+    socket.on('newUser', data => {
+        socket.broadcast.emit('newUser', data);
+    });
+
     socket.on('message', data => {
         socket.broadcast.emit('message', data);
-    })
+    });
 });

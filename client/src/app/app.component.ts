@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 			this.auth.setToken(potentialToken);
 		}
 
-		this.socket.on('message', data => {
+		this.socket.on('newUser', data => {
 			if (this.auth.permission.getValue() === 'super') {
 				MaterialService.toast(`Зареєструвався новий користувач з ім'ям ${data.name}`)
 			}

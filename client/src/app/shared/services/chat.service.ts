@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {switchMap, tap} from "rxjs/operators";
+import {switchMap} from "rxjs/operators";
 import {Conversation} from "../interfaces";
 
 @Injectable({
@@ -15,7 +15,6 @@ export class ChatService {
 		return this.http.get(`/api/chat/${id}`)
 			.pipe(
 				switchMap(response => {
-					console.log('response', response)
 					let messages = response['conversation'];
 					return of(messages)
 				})
@@ -32,15 +31,12 @@ export class ChatService {
 			);
 	}
 
-	newConversation(id: string, message: string, name: string): Observable<any> {
-		return this.http.post(`/api/chat/new/${id}`, {message, name});
+	newConversation(user, message: string): Observable<any> {
+		return this.http.post(`/api/chat/new/${user._id}`, {...user, message});
 	}
 
-	sendReply(conversationId: string, message: string, name: string, recipient: string): Observable<any> {
-		return this.http.post<any>(`/api/chat/${conversationId}`, {message, name, recipient})
-			.pipe(
-				tap(res => console.log('sendReply', res))
-			);
+	sendReply(conversation, message: string): Observable<any> {
+		return this.http.post<any>(`/api/chat/${conversation.conversationId}`, {...conversation, message})
 	}
 
 	deleteConversation(conversationId: string) {

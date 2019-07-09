@@ -23,6 +23,10 @@ export interface Conversation {
 		name: string;
 		_id: string;
 	};
+	conversationAuthor: {
+		name: string;
+		id: string;
+	};
 	_id: string;
 	__v?: number;
 }

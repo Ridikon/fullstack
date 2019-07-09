@@ -10,6 +10,6 @@ export class WebsocketService {
 	}
 
 	newUserEvent(user: User) {
-		this.socket.emit('message', {name: user.name})
+		this.socket.emit('newUser', {name: user.name})
 	}
 }

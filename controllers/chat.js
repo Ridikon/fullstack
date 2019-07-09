@@ -15,26 +15,29 @@ module.exports.getConversations = function (req, res, next) {
 
             // Set up empty array to hold conversations + most recent message
             let fullConversations = [];
-            console.log('conversations', conversations)
-            conversations.forEach(function (conversation) {
-                Message.find({ 'conversationId': conversation._id })
-                    .sort('-createdAt')
-                    .limit(1)
-                    .populate({
-                        path: "author",
-                        select: "name"
-                    })
-                    .exec(function (err, message) {
-                        if (err) {
-                            res.send({ error: err });
-                            return next(err);
-                        }
-                        fullConversations.push(message);
-                        if (fullConversations.length === conversations.length) {
-                            return res.status(200).json({ conversations: fullConversations });
-                        }
-                    });
-            });
+            if (conversations.length) {
+                conversations.forEach(function (conversation) {
+                    Message.find({ 'conversationId': conversation._id })
+                        .sort('-createdAt')
+                        .limit(1)
+                        .populate({
+                            path: "author",
+                            select: "name"
+                        })
+                        .exec(function (err, message) {
+                            if (err) {
+                                res.send({ error: err });
+                                return next(err);
+                            }
+                            fullConversations.push(message);
+                            if (fullConversations.length === conversations.length) {
+                                return res.status(200).json({ conversations: fullConversations });
+                            }
+                        });
+                });
+            } else {
+                return res.status(200).json({ conversations: [] });
+            }
         });
 };
 
@@ -57,7 +60,6 @@ module.exports.getConversation = function (req, res, next) {
 };
 
 module.exports.newConversation = async function (req, res, next) {
-    console.log('req.user', req.user)
     try {
         if (!req.params.recipient) {
             res.status(422).send({ error: 'Please choose a valid recipient for your message.' });
@@ -70,24 +72,25 @@ module.exports.newConversation = async function (req, res, next) {
         }
 
         const author = await User.findById(req.user._id)
-        console.log('author', author)
 
         const conversation = await new Conversation({
             participants: [req.user._id, req.params.recipient],
-            authorName: author.name
+            conversationAuthor: {
+                id: author._id,
+                name: author.name
+            }
         });
 
-        conversation.save(async function (err, newConversation) {
-            console.log('newConversation', newConversation)
+        await conversation.save(function (err, newConversation) {
             if (err) {
                 res.send({ error: err });
                 return next(err);
             }
 
-            const message = await new Message({
+            const message = new Message({
                 conversationId: newConversation._id,
                 conversationName: req.body.name,
-                conversationAuthor: newConversation.authorName,
+                conversationAuthor: newConversation.conversationAuthor,
                 conversationRecipient: req.params.recipient,
                 body: req.body.message,
                 author: req.user._id
@@ -102,6 +105,7 @@ module.exports.newConversation = async function (req, res, next) {
                 res.status(200).json({ message: 'Conversation started!', conversationId: conversation._id });
                 return next();
             });
+
         });
     } catch (e) {
         errorHandler(res, e)
@@ -112,8 +116,9 @@ module.exports.newConversation = async function (req, res, next) {
 module.exports.sendReply = function (req, res, next) {
     const reply = new Message({
         conversationId: req.params.conversationId,
-        conversationName: req.body.name,
-        conversationRecipient: req.body.recipient,
+        conversationName: req.body.conversationName,
+        conversationAuthor: req.body.conversationAuthor,
+        conversationRecipient: req.body.conversationRecipient,
         body: req.body.message,
         author: req.user._id
     });
@@ -131,7 +136,6 @@ module.exports.sendReply = function (req, res, next) {
 
 // DELETE Route to Delete Conversation
 module.exports.deleteConversation = function (req, res, next) {
-    console.log('conversationId', req.params.conversationId)
     Conversation.findOneAndRemove(
         { '_id': req.params.conversationId }, function (err) {
         if (err) {

@@ -2,68 +2,127 @@
 	<h4>Чат</h4>
 </div>
 
-<div class="chat card-panel">
-	<div class="chat-user-list">
-		<a class="btn-floating" (click)="openModal()"><i class="material-icons">add</i></a>
-		<div class="collection with-header">
-			<div class="collection-header"><h5>Чати</h5></div>
-			<div
-				class="collection-wrapper"
-				*ngFor="let conversation of conversations$ | async">
-				<a
-					class="collection-item"
-					(click)="selectConversation(conversation)"
-					[ngClass]="{active: isActive(conversation) && conversation.conversationAuthor === chatName}"
-				>
-					{{conversation.conversationAuthor}}
-				</a>
-				<span class="chat-remove" (click)="deleteConversation(conversation)"><i class="material-icons">delete_forever</i></span>
+<a
+	class="chat-button chat-button__mobile"
+	(click)="sidebarTrigger()"
+>
+	<i class="material-icons">menu</i>
+</a>
+
+<div class="chat">
+	<!--Chat sidebar-->
+	<div class="chat-sidebar" #chatSidebar>
+		<div class="side-nav fixed">
+			<div class="chat-sidebar__header">
+				<div class="chat-user">
+					<div class="avatar">
+						<img src="../../../assets/img/user-default.png" alt="" class="circle">
+						<span class="title">{{myName}}</span>
+					</div>
+
+					<div class="secondary-content">
+						<i class="material-icons">more_vert</i>
+					</div>
+				</div>
 			</div>
 
+			<!-- User list -->
+			<ul class="chat-sidebar__users">
+				<div class="chat-search">
+					<div class="search-area">
+						<i class="material-icons mr-2 search-icon">search</i>
+						<input type="text" placeholder="Пошук чату" class="app-filter">
+					</div>
+					<div class="add-user">
+						<button
+							class="add-user__btn"
+							(click)="openModal()"
+							[disabled]="!(users$ || []).length"
+							[ngClass]="{'add-user__btn_disabled': !(users$ || []).length}"
+						>
+							<i class="material-icons mr-2 add-user-icon">person_add</i>
+						</button>
+					</div>
+				</div>
+				<div *ngIf="(conversations$ || []).length">
+					<li
+						class="chat-user chat-user_hovered"
+						*ngFor="let conversation of conversations$"
+						(click)="selectConversation(conversation)"
+						[ngClass]="{'user-active': isActive(conversation)}"
+					>
+						<div class="avatar">
+							<img src="../../../assets/img/user-default.png" alt="" class="circle">
+							<span class="title">{{setConversationName(conversation)}}</span>
+						</div>
 
-			<a
-				*ngIf="selectedUser"
-				class="collection-item"
-				(click)="selectConversation(selectedUser)"
-				[ngClass]="{active: selectedUser.name === chatName}"
-			>
-				{{selectedUser.name}}
-			</a>
+						<div class="secondary-content">
+							<i class="material-icons">grade</i>
+						</div>
+					</li>
+				</div>
+			</ul>
+
+			<app-loader *ngIf="isLoad"></app-loader>
 		</div>
 	</div>
 
+	<!--Chat content-->
 	<div class="chat-content">
-		<div class="chat-header">
-			<p>{{chatName ? chatName : 'Виберіть чат'}}</p>
-		</div>
-		<div class="messages">
-			<p
-				class="message"
-				*ngFor="let message of messages"
-				[ngClass]="{'my-message': message.myMessage}"
+		<div class="chat-content__header">
+			<div
+				class="chat-user"
+				*ngIf="selectedConversation; else empty"
 			>
-				<span [ngClass]="message.myMessage ? 'light-blue' : 'red'">{{message.body}}</span>
-			</p>
-		</div>
-		<div class="text-field">
-			<div class="input-field">
-				<i class="material-icons prefix">mode_edit</i>
-				<textarea
-					id="icon_prefix2"
-					class="materialize-textarea"
-					[(ngModel)]="message"
-					[ngModelOptions]="{standalone: true}"
-				></textarea>
-				<label for="icon_prefix2">Повідомлення</label>
+				<div class="avatar">
+					<img src="../../../assets/img/user-default.png" alt="" class="circle">
+					<span class="title">{{setConversationName(selectedConversation)}}</span>
+				</div>
+
+				<div class="secondary-content">
+					<i class="material-icons">grade</i>
+					<i class="material-icons" (click)="onDelete()">delete</i>
+					<i class="material-icons">more_vert</i>
+				</div>
 			</div>
 
-			<button
-				class="btn waves-effect waves-light"
-				type="button"
-				(click)="onSend()"
-			>Відправити
-				<i class="material-icons right">send</i>
-			</button>
+			<ng-template #empty>
+				<p>Виберіть чат!</p>
+			</ng-template>
+		</div>
+
+		<!--Chat messages-->
+		<div class="chat-content__messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+			<div
+				class="message"
+				*ngFor="let message of messages"
+				[ngClass]="{' message_right': isAuthorMessage(message)}"
+			>
+				<div class="message-avatar" [ngClass]="{'message-avatar_hidden': !message.isFirst}">
+					<a class="avatar">
+						<img src="../../../assets/img/user-default.png" class="circle" alt="avatar">
+					</a>
+				</div>
+				<div class="message-body">
+					<small class="ml-2">{{message.createdAt | date:"short"}}</small>
+					<div class="message-text" [ngClass]="{'message-text_first': message.isFirst}">
+						<span>{{message.body}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Chat footer-->
+		<div class="chat-footer">
+			<form class="chat-input">
+				<textarea
+					type="text"
+					[(ngModel)]="message"
+					[ngModelOptions]="{standalone: true}"
+					placeholder="Введіть ваше повідомлення"
+					class="materialize-textarea message"
+				></textarea>
+				<button [disabled]="!selectedConversation" class="btn" (click)="onSend()">Відправити</button>
+			</form>
 		</div>
 	</div>
 </div>
@@ -75,7 +134,7 @@
 				<div class="collection-header"><h5>Користувачі</h5></div>
 				<a
 					class="collection-item"
-					*ngFor="let user of users$ | async"
+					*ngFor="let user of users$"
 					(click)="selectUser(user)"
 				>
 					{{user.name}}
