@@ -4,10 +4,11 @@ $b-radius: 15px;
 
 .chat {
 	display: flex;
-	height: 80vh;
+	height: 70vh;
 	border-radius: $b-radius;
 	box-shadow: $box-shadow;
 	padding: 15px;
+	position: relative;
 
 	.avatar {
 		display: flex;
@@ -20,17 +21,23 @@ $b-radius: 15px;
 
 	.secondary-content {
 		cursor: pointer;
+		min-width: 72px;
 	}
 
-
-
 	&-sidebar {
-		box-shadow: 3px 0 2px -3px #000000;
+		overflow: auto;
+		background-color: #fff;
 		padding: 15px;
 		width: 350px;
+		transition: ease-in-out 0.3s;
 
 		@media only screen and (max-width : 992px) {
-			transform: translateX(-120%);
+			width: 100%;
+			border-radius: $b-radius;
+			height: 70vh;
+			position: absolute;
+			left: -120%;
+			z-index: 2;
 		}
 
 		&__header {
@@ -144,6 +151,15 @@ $b-radius: 15px;
 		@media only screen and (min-width : 992px) {
 			&__mobile {
 				display: none;
+			}
+		}
+
+		@media only screen and (max-width : 992px) {
+			&__mobile {
+				position: absolute;
+				top: 15px;
+				left: 15px;
+				z-index: 3;
 			}
 		}
 	}

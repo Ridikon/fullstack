@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 
 import {ProfilePageComponent} from "./profile-page.component";
-import {ProfileResolverService} from "./profile-resolver.service";
+import {ProfileResolverService} from "../shared/resolvers/profile-resolver.service";
 
 const profileRoutes: Routes = [
 	{

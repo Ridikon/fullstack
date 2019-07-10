@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {ChatPageComponent} from "./chat-page.component";
 import {AuthGuard} from "../shared/classes/auth.guard";
 import {ChatListComponent} from "./chat-list/chat-list.component";
+import {ProfileResolverService} from "../shared/resolvers/profile-resolver.service";
 
 const chatRoutes: Routes = [
 	{
@@ -11,7 +12,13 @@ const chatRoutes: Routes = [
 		component: ChatPageComponent,
 		canActivateChild: [ AuthGuard ],
 		children: [
-			{path: '', redirectTo: '', pathMatch: 'full', component: ChatListComponent}
+			{
+				path: '',
+				redirectTo: '',
+				pathMatch: 'full',
+				component: ChatListComponent,
+				resolve: {user: ProfileResolverService}
+			}
 		]
 	}
 ];

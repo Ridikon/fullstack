@@ -2,14 +2,13 @@
 	<h4>Чат</h4>
 </div>
 
-<a
-	class="chat-button chat-button__mobile"
-	(click)="sidebarTrigger()"
->
-	<i class="material-icons">menu</i>
-</a>
-
 <div class="chat">
+	<a class="chat-button chat-button__mobile"
+		(click)="sidebarTrigger()"
+	>
+		<i class="material-icons">{{open ? 'close' : 'menu'}}</i>
+	</a>
+
 	<!--Chat sidebar-->
 	<div class="chat-sidebar" #chatSidebar>
 		<div class="side-nav fixed">
@@ -40,7 +39,7 @@
 							[disabled]="!(users$ || []).length"
 							[ngClass]="{'add-user__btn_disabled': !(users$ || []).length}"
 						>
-							<i class="material-icons mr-2 add-user-icon">person_add</i>
+							<i class="material-icons add-user-icon">person_add</i>
 						</button>
 					</div>
 				</div>

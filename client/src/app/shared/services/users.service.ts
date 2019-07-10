@@ -44,4 +44,8 @@ export class UsersService {
 				)
 			)
 	}
+
+	getUserFromStore() {
+		return
+	}
 }
