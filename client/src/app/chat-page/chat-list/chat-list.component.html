@@ -113,13 +113,13 @@
 		<!--Chat footer-->
 		<div class="chat-footer">
 			<form class="chat-input">
-				<textarea
+				<input
 					type="text"
 					[(ngModel)]="message"
 					[ngModelOptions]="{standalone: true}"
 					placeholder="Введіть ваше повідомлення"
 					class="materialize-textarea message"
-				></textarea>
+				>
 				<button
 					[disabled]="!selectedConversation || !message"
 					class="btn"

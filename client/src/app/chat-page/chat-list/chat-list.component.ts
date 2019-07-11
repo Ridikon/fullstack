@@ -43,9 +43,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.isLoad = true;
 
 		this.route.data
-			.pipe(
-				take(1)
-			)
+			.pipe(take(1))
 			.subscribe(
 				data => {
 					this.myName = data.user.name;
@@ -69,12 +67,8 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		if (this.getConversationId()) {
 			this.chatService.getConversation(this.getConversationId())
-				.pipe(
-					takeUntil(this.unsubscribe$)
-				)
-				.subscribe(
-					response => this._setFirstMessages(response)
-				)
+				.pipe(takeUntil(this.unsubscribe$))
+				.subscribe(response => this._setFirstMessages(response))
 		}
 
 		this.socket.on('message', data => {

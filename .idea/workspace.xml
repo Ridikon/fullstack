@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="145" column="26" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
+            <state relative-caret-position="-4406">
+              <caret line="18" column="57" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
               <folding>
                 <element signature="e#0#97#0" expanded="true" />
               </folding>
@@ -45,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="63" column="30" lean-forward="true" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
+            <state relative-caret-position="422">
+              <caret line="90" column="33" lean-forward="true" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="33" />
               <folding>
                 <element signature="e#0#103#0" expanded="true" />
               </folding>
@@ -57,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+            <state relative-caret-position="476">
+              <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -66,17 +64,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/chat.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="138" column="34" lean-forward="true" selection-start-line="138" selection-start-column="34" selection-end-line="138" selection-end-column="34" />
+            <state relative-caret-position="2346">
+              <caret line="138" column="34" selection-start-line="138" selection-start-column="34" selection-end-line="138" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="127" column="43" selection-start-line="127" selection-start-column="43" selection-end-line="127" selection-end-column="43" />
+            <state relative-caret-position="470">
+              <caret line="125" column="38" lean-forward="true" selection-start-line="125" selection-start-column="38" selection-end-line="125" selection-end-column="38" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#1;n#!!top" />
               </folding>
@@ -317,18 +315,18 @@
     <property name="ts.external.directory.path" value="C:\Pet Projects\fullstack\client\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Pet Projects\fullstack\client\src\assets\img" />
-      <recent name="C:\Pet Projects\fullstack\client\src" />
-      <recent name="C:\Pet Projects\fullstack\client\src\theme" />
-      <recent name="C:\Pet Projects\fullstack\uploads" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Pet Projects\fullstack\client\src\app\shared\resolvers" />
       <recent name="C:\Pet Projects\fullstack\client\src\assets\img" />
       <recent name="C:\Pet Projects\fullstack\client\src\app\shared\redux\categories" />
       <recent name="C:\Pet Projects\fullstack\client\src\app\shared\classes" />
       <recent name="C:\Pet Projects\fullstack\client\src\app\shared\services" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Pet Projects\fullstack\client\src\assets\img" />
+      <recent name="C:\Pet Projects\fullstack\client\src" />
+      <recent name="C:\Pet Projects\fullstack\client\src\theme" />
+      <recent name="C:\Pet Projects\fullstack\uploads" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -359,6 +357,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Protractor.AppComponent" />
         <item itemvalue="Protractor.AppComponent" />
         <item itemvalue="Protractor.AppComponent" />
         <item itemvalue="Protractor.AppComponent" />
@@ -573,7 +572,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="599849000" />
+    <option name="totallyTimeSpent" value="602063000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1041,17 +1040,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="48" selection-start-column="48" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/chat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2346">
+          <caret line="138" column="34" selection-start-line="138" selection-start-column="34" selection-end-line="138" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -1062,39 +1068,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/chat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="138" column="34" lean-forward="true" selection-start-line="138" selection-start-column="34" selection-end-line="138" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/shared/layouts/site-layout/site-layout.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="63" column="30" lean-forward="true" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
+        <state relative-caret-position="422">
+          <caret line="90" column="33" lean-forward="true" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="33" />
           <folding>
             <element signature="e#0#103#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.html">
+    <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="127" column="43" selection-start-line="127" selection-start-column="43" selection-end-line="127" selection-end-column="43" />
+        <state relative-caret-position="-4406">
+          <caret line="18" column="57" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
           <folding>
-            <element signature="n#div#0;n#div#0;n#div#1;n#!!top" />
+            <element signature="e#0#97#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts">
+    <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="145" column="26" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
+        <state relative-caret-position="470">
+          <caret line="125" column="38" lean-forward="true" selection-start-line="125" selection-start-column="38" selection-end-line="125" selection-end-column="38" />
           <folding>
-            <element signature="e#0#97#0" expanded="true" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#!!top" />
           </folding>
         </state>
       </provider>
