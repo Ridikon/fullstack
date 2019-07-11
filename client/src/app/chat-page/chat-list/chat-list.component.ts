@@ -83,6 +83,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			if (this.getConversationId() === data.message.conversationId) {
 				if ((data.message.conversationRecipient === this.authorId) || (data.message.conversationAuthor.id === this.authorId)) {
 					this.messages.push(data.message);
+					this._setFirstMessages(this.messages);
 				}
 			}
 		})
@@ -253,7 +254,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	_setUsers(users: User[]) {
 		this.users$ = users.filter(user => {
-			if (this.activeConversationsId.includes(user._id) || user._id === localStorage.getItem('auth-id')) {
+			if (this.activeConversationsId.includes(user._id) || user._id === this.authorId) {
 				return;
 			}
 

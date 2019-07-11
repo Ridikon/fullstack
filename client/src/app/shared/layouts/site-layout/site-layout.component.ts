@@ -5,12 +5,13 @@ import {
 	ViewChild
 } from '@angular/core';
 import {Router} from "@angular/router";
+import {select, State} from "@ngrx/store";
+import {switchMap} from "rxjs/operators";
+import {Socket} from "ngx-socket-io";
 
 import {AuthService} from "../../services/auth.service";
 import {MaterialInstance, MaterialService} from "../../classes/material.service";
-import {select, State} from "@ngrx/store";
 import {AppState} from "../../redux/app.state";
-import {switchMap} from "rxjs/operators";
 import {UsersService} from "../../services/users.service";
 import {CategoriesService} from "../../services/categories.service";
 
@@ -40,11 +41,13 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 		private router: Router,
 		private state: State<AppState>,
 		private usersService: UsersService,
-		private categoriesService: CategoriesService) {
+		private categoriesService: CategoriesService,
+		private socket: Socket) {
 	}
 
 	ngOnInit(): void {
 		const userId = localStorage.getItem('auth-id');
+		const audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
 
 		this.isDesktopWidth = this.isDesktop();
 
@@ -65,6 +68,24 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 				)
 				.subscribe();
 		}
+
+		this.socket.on('newUser', data => {
+			if (this.auth.permission.getValue() === 'super') {
+				MaterialService.toast(`Зареєструвався новий користувач з ім'ям ${data.name}`)
+			}
+		});
+
+		this.socket.on('message', data => {
+			if (SiteLayoutComponent.isCurrentReceiver(data, userId)) {
+				audio.play();
+				const name = data.message.conversationAuthor.name ? data.message.conversationAuthor.name : data.message.conversationName;
+				MaterialService.toast(`Користувач з ім'ям ${name}, надіслав повідомлення`)
+			}
+		})
+	}
+
+	static isCurrentReceiver(data, id) {
+		return ((data.message.conversationRecipient === id) || (data.message.conversationAuthor.id === id));
 	}
 
 	ngAfterViewInit(): void {
