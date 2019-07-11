@@ -27,6 +27,7 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 	sidebarInstance: MaterialInstance;
 	isDesktopWidth: boolean;
 	user$ = this.state.pipe(select('userPage'));
+	audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
 
 	links = [
 		{url: '/profile', name: 'Профіль'},
@@ -47,7 +48,6 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		const userId = localStorage.getItem('auth-id');
-		const audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
 
 		this.isDesktopWidth = this.isDesktop();
 
@@ -76,16 +76,40 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 		});
 
 		this.socket.on('message', data => {
-			if (SiteLayoutComponent.isCurrentReceiver(data, userId)) {
-				audio.play();
-				const name = data.message.conversationAuthor.name ? data.message.conversationAuthor.name : data.message.conversationName;
-				MaterialService.toast(`Користувач з ім'ям ${name}, надіслав повідомлення`)
-			}
-		})
+			this.newSocketAction(data, userId);
+		});
+
+		this.socket.on('newConversation', data => {
+			this.newSocketAction(data, userId);
+		});
+
+		this.socket.on('deleteConversation', data => {
+			this.newSocketAction(data, userId);
+		});
 	}
 
-	static isCurrentReceiver(data, id) {
-		return ((data.message.conversationRecipient === id) || (data.message.conversationAuthor.id === id));
+	isCurrentReceiver(data, id) {
+		return ((data.conversationRecipient === id) || (data.conversationAuthor.id === id));
+	}
+
+	newSocketAction(data, id) {
+		if (data.hasOwnProperty('conversation') && this.isCurrentReceiver(data.conversation, id)) {
+			const name = data.conversation.conversationAuthor.name;
+			MaterialService.toast(`Користувач ${name} створив з вами розмову`);
+			this.audio.play();
+		}
+
+		if (data.hasOwnProperty('message') && this.isCurrentReceiver(data.message, id)) {
+			const name = data.message.conversationRecipient === id ? data.message.conversationAuthor.name : data.message.conversationName;
+			MaterialService.toast(`Користувач ${name}, надіслав вам повідомлення`);
+			this.audio.play();
+		}
+
+		if (data.hasOwnProperty('deletedConversation') && this.isCurrentReceiver(data.deletedConversation, id)) {
+			const name = data.deletedConversation.conversationRecipient === id ? data.deletedConversation.conversationAuthor.name : data.deletedConversation.conversationName;
+			MaterialService.toast(`Користувач ${name} видалив розмову`);
+			this.audio.play();
+		}
 	}
 
 	ngAfterViewInit(): void {

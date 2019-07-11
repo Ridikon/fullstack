@@ -20,7 +20,6 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	private unsubscribe$ = new Subject<void>();
 
-	isDesktopWidth: boolean = false;
 	open: boolean;
 	users$: User[];
 	conversations$: Conversation[];
@@ -37,12 +36,11 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 		private usersService: UsersService,
 		private chatService: ChatService,
 		private socket: Socket,
-		private route: ActivatedRoute) {
-	}
+		private route: ActivatedRoute
+	) {}
 
 	ngOnInit() {
 		this.isLoad = true;
-		this.isDesktopWidth = this.isDesktop();
 
 		this.route.data
 			.pipe(
@@ -81,10 +79,52 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		this.socket.on('message', data => {
 			if (this.getConversationId() === data.message.conversationId) {
-				if ((data.message.conversationRecipient === this.authorId) || (data.message.conversationAuthor.id === this.authorId)) {
+
+				if (this.isCurrentListener(data.message)) {
 					this.messages.push(data.message);
 					this._setFirstMessages(this.messages);
 				}
+			}
+		});
+
+		this.socket.on('newConversation', data => {
+			if (this.isCurrentListener(data.conversation)) {
+				this.conversations$.push(data.conversation);
+
+				if (!this.selectedConversation) {
+					this.selectConversation(data.conversation);
+				}
+
+				this.users$ = this.users$.filter(user => user._id !== this.selectedConversation.conversationAuthor.id);
+
+				this._setUsers(this.users$)
+			}
+		});
+
+		this.socket.on('deleteConversation', data => {
+
+			if (this.isCurrentListener(data.deletedConversation)) {
+				this.conversations$ = this.conversations$.filter(conversation => conversation.conversationId !== data.deletedConversation.conversationId)
+
+				if (this.conversations$.length) {
+					this.selectedConversation = this.conversations$[0];
+					this.setConversationId(this.selectedConversation.conversationId)
+				} else {
+					this.messages = [];
+					this.selectedConversation = null;
+					localStorage.removeItem('selectedConversationId');
+				}
+
+				this.usersService.fetch()
+					.pipe(
+						takeUntil(this.unsubscribe$)
+					).subscribe(
+						users => {
+							this.users$ = users;
+							this.activeConversationsId = this.activeConversationsId.filter(id => id !== data.deletedConversation.conversationRecipient);
+							this._setUsers(this.users$)
+						}
+				)
 			}
 		})
 	}
@@ -99,8 +139,12 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.modal = MaterialService.initModal(this.modalRef);
 	}
 
+	isCurrentListener(data) {
+		return ((data.conversationRecipient === this.authorId) || (data.conversationAuthor.id === this.authorId))
+	}
+
 	isDesktop(): boolean {
-		return window.document.activeElement.clientWidth > 992;
+		return window.document.body.clientWidth > 992;
 	}
 
 	sidebarTrigger() {
@@ -148,6 +192,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			.subscribe(
 				(response) => {
 					this.selectedConversation = response.find(item => item.conversationId === this.getConversationId());
+					this.socket.emit('newConversation', {conversation: this.selectedConversation});
 					this.activeConversationsId.push(this.selectedConversation.conversationRecipient);
 					this.users$ = this.users$.filter(user => user._id !== this.selectedConversation.conversationRecipient);
 					this.conversations$ = response;
@@ -213,9 +258,14 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	onDelete() {
-		this.chatService.deleteConversation(this.selectedConversation.conversationId)
+		const id = this.selectedConversation.conversationId;
+
+		this.chatService.deleteConversation(id)
 			.pipe(
 				takeUntil(this.unsubscribe$),
+				tap(response => {
+					this.socket.emit('deleteConversation', {deletedConversation: this.selectedConversation});
+				}),
 				switchMap(() => this.usersService.fetch()),
 				tap(users => {
 					this.activeConversationsId = this.activeConversationsId.filter(id => id !== this.selectedConversation.conversationRecipient);

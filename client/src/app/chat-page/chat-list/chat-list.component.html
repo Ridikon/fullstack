@@ -4,7 +4,7 @@
 
 <div class="chat">
 	<a class="chat-button chat-button__mobile"
-		(click)="sidebarTrigger()"
+	   (click)="sidebarTrigger()"
 	>
 		<i class="material-icons">{{open ? 'close' : 'menu'}}</i>
 	</a>
@@ -120,7 +120,17 @@
 					placeholder="Введіть ваше повідомлення"
 					class="materialize-textarea message"
 				></textarea>
-				<button [disabled]="!selectedConversation" class="btn" (click)="onSend()">Відправити</button>
+				<button
+					[disabled]="!selectedConversation || !message"
+					class="btn"
+					(click)="onSend()"
+				>
+					<span *ngIf="isDesktop(); else icon">Відправити</span>
+
+					<ng-template #icon>
+						<i class="material-icons">send</i>
+					</ng-template>
+				</button>
 			</form>
 		</div>
 	</div>

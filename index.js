@@ -20,4 +20,12 @@ io.on('connection', function(socket){
     socket.on('message', data => {
         socket.broadcast.emit('message', data);
     });
+
+    socket.on('newConversation', data => {
+        socket.broadcast.emit('newConversation', data);
+    });
+
+    socket.on('deleteConversation', data => {
+        socket.broadcast.emit('deleteConversation', data);
+    });
 });
