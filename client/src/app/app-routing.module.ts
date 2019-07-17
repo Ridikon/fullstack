@@ -6,6 +6,7 @@ import {AuthLayoutComponent} from "./shared/layouts/auth-layout/auth-layout.comp
 import {SiteLayoutComponent} from "./shared/layouts/site-layout/site-layout.component";
 import {RegisterPageComponent} from "./register-page/register-page.component";
 import {AuthGuard} from "./shared/classes/auth.guard";
+import {UsersResolverService} from "./shared/resolvers/users-resolver.service";
 
 const routes: Routes = [
 	{
@@ -21,6 +22,7 @@ const routes: Routes = [
 		path: '',
 		component: SiteLayoutComponent,
 		canActivate: [AuthGuard],
+		resolve: {users: UsersResolverService},
 		children: [
 			{path: 'overview', loadChildren: './overview-page/overview.module#OverviewModule'},
 			{path: 'analytics', loadChildren: './analytics-page/analytics.module#AnalyticsModule'},

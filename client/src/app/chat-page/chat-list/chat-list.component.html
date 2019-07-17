@@ -43,6 +43,16 @@
 						</button>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col s12">
+						<ul class="tabs">
+							<li class="tab col s6"><a [ngClass]="{'active': !favoriteTab}" (click)="displayFavorites(false)">Всі</a></li>
+							<li class="tab col s6"><a [ngClass]="{'active': favoriteTab}" (click)="displayFavorites(true)">Улюблені</a></li>
+						</ul>
+					</div>
+				</div>
+
 				<div *ngIf="(conversations$ || []).length">
 					<li
 						class="chat-user chat-user_hovered"
@@ -56,7 +66,7 @@
 						</div>
 
 						<div class="secondary-content">
-							<i class="material-icons">grade</i>
+							<i class="material-icons">{{conversation.favorite ? 'star' : 'star_border'}}</i>
 						</div>
 					</li>
 				</div>
@@ -79,7 +89,7 @@
 				</div>
 
 				<div class="secondary-content">
-					<i class="material-icons">grade</i>
+					<i class="material-icons" (click)="triggerFavorite()">{{selectedConversation.favorite ? 'star' : 'star_border'}}</i>
 					<i class="material-icons" (click)="onDelete()">delete</i>
 					<i class="material-icons">more_vert</i>
 				</div>
