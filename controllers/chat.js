@@ -8,7 +8,6 @@ module.exports.getConversations = function (req, res, next) {
     Conversation.find({ participants: req.user._id })
         .select('_id favorite')
         .exec(function (err, conversations) {
-            console.log('conversations', conversations)
             if (err) {
                 res.send({ error: err });
                 return next(err);
@@ -83,7 +82,10 @@ module.exports.newConversation = async function (req, res, next) {
                 id: author._id,
                 name: author.name
             },
-            favorite: false
+            favorite: {
+                author: false,
+                recipient: false
+            }
         });
 
         await conversation.save(function (err, newConversation) {
@@ -99,7 +101,7 @@ module.exports.newConversation = async function (req, res, next) {
                 conversationRecipient: req.params.recipient,
                 body: req.body.message,
                 author: req.user._id,
-                favorite: false
+                favorite: newConversation.favorite
             });
 
             message.save(function (err, newMessage) {
@@ -116,7 +118,6 @@ module.exports.newConversation = async function (req, res, next) {
     } catch (e) {
         errorHandler(res, e)
     }
-
 };
 
 module.exports.sendReply = function (req, res, next) {
@@ -126,7 +127,8 @@ module.exports.sendReply = function (req, res, next) {
         conversationAuthor: req.body.conversationAuthor,
         conversationRecipient: req.body.conversationRecipient,
         body: req.body.message,
-        author: req.user._id
+        author: req.user._id,
+        favorite: req.body.favorite
     });
 
     reply.save(function (err, sentReply) {
@@ -151,7 +153,6 @@ module.exports.updateConversation = async function (req, res) {
             { $set: updated },
             { new: true }
         );
-        console.log('conversation', conversation)
         res.status(200).json(conversation);
     } catch (e) {
         errorHandler(res, e)

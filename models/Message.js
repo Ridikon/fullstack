@@ -11,8 +11,14 @@ const MessageSchema = new Schema({
             required: true
         },
         favorite: {
-            type: Boolean,
-            required: true
+            author: {
+                type: Boolean,
+                required: true
+            },
+            recipient: {
+                type: Boolean,
+                required: true
+            }
         },
         author: {
             type: Schema.Types.ObjectId,

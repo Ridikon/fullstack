@@ -67,7 +67,11 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe$))
 			.subscribe(
 				data => {
-					this.conversations$ = data.conversations;
+					let sortFavorite = (a, b) => {
+						return a.favorite[this.getSender(a)] - b.favorite[this.getSender(b)]
+					};
+
+					this.conversations$ = data.conversations.sort(sortFavorite).reverse();
 					this.selectedConversation = this.conversations$.find(item => item.conversationId === this.getConversationId());
 					this.activeConversationsId = this.conversations$.map(conversation => conversation.conversationRecipient);
 				}
@@ -91,7 +95,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		this.socket.on('newConversation', data => {
 			if (this.isCurrentListener(data.conversation)) {
-				this.store.dispatch(new NewConversation(data.conversation))
+				this.store.dispatch(new NewConversation(data.conversation));
 
 				if (!this.selectedConversation) {
 					this.selectConversation(data.conversation);
@@ -158,7 +162,13 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	triggerFavorite() {
 		const id = this.selectedConversation.conversationId;
-		const favorite = !this.selectedConversation.favorite;
+		const favorite = this.selectedConversation.favorite;
+
+		if (this.authorId === this.selectedConversation.conversationRecipient) {
+			favorite.recipient = !this.selectedConversation.favorite.recipient
+		} else {
+			favorite.author = !this.selectedConversation.favorite.author
+		}
 
 		this.chatService.setFavoriteConversation(id, favorite)
 			.pipe(
@@ -167,8 +177,12 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			.subscribe()
 	}
 
-	displayFavorites(isFavorite: boolean) {
-		this.favoriteTab = isFavorite;
+	getSender(conversation: Conversation) {
+		if (conversation.conversationAuthor.id === this.authorId) {
+			return 'author'
+		}
+
+		return 'recipient';
 	}
 
 	setConversationName(conversation: Conversation) {

@@ -18,7 +18,7 @@ export class SetConversations implements Action {
 export class FavoriteConversation implements Action {
 	readonly type = CHAT_ACTION.FAVORITE_CONVERSATION;
 
-	constructor(public payload: {id: string, favorite: boolean}) {
+	constructor(public payload: {id: string, favorite: {author: boolean, recipient: boolean}}) {
 	}
 }
 

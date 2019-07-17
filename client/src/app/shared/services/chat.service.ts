@@ -40,7 +40,7 @@ export class ChatService {
 		return this.http.post(`/api/chat/new/${user._id}`, {...user, message});
 	}
 
-	setFavoriteConversation(conversationId: string, favorite: boolean): Observable<any> {
+	setFavoriteConversation(conversationId: string, favorite: {author: boolean, recipient: boolean}): Observable<any> {
 		return this.http.patch(`/api/chat/${conversationId}`, {favorite})
 			.pipe(
 				tap(response => {
