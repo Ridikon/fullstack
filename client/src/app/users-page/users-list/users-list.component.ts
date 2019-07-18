@@ -4,6 +4,8 @@ import {UsersService} from "../../shared/services/users.service";
 import {User} from "../../shared/interfaces";
 import {MaterialInstance, MaterialService} from "../../shared/classes/material.service";
 import {AuthService} from "../../shared/services/auth.service";
+import {select, Store} from "@ngrx/store";
+import {AppState} from "../../shared/redux/app.state";
 
 @Component({
 	selector: 'app-users-list',
@@ -17,14 +19,12 @@ export class UsersListComponent implements OnInit {
 	selectedUser: User;
 	permission: string;
 
-	constructor(private usersService: UsersService, private auth: AuthService) {
+	constructor(private usersService: UsersService, private auth: AuthService, private store: Store<AppState>,) {
 	}
 
 	ngOnInit() {
-		this.usersService.fetch()
-			.subscribe(response => {
-				this.users = response.filter(user => user.permission !== this.auth.permission.getValue());
-			})
+		this.store.pipe(select('userPage'))
+			.subscribe(data => this.users = data['users'].filter(user => user.permission !== this.auth.permission.getValue()));
 	}
 
 	ngOnDestroy(): void {

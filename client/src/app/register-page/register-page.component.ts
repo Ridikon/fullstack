@@ -4,7 +4,6 @@ import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {MaterialService} from "../shared/classes/material.service";
-import {WebsocketService} from "../shared/services/websocket.service";
 
 @Component({
 	selector: 'app-register-page',
@@ -19,8 +18,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 	constructor(
 		private fb: FormBuilder,
 		private auth: AuthService,
-		private router: Router,
-		private wsService: WebsocketService
+		private router: Router
 	) {}
 
 	ngOnDestroy(): void {

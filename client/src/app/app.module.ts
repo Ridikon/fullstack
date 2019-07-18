@@ -17,6 +17,7 @@ import {SharedModule} from "./shared/shared.module";
 import {categoriesReducer} from "./shared/redux/categories/categories.reducer";
 import {userReducer} from "./shared/redux/user/user.reducer";
 import {environment} from "../environments/environment";
+import {chatReducer} from "./shared/redux/chat/chat.reducer";
 
 const config: SocketIoConfig = {
 	url: environment.production ? 'https://cryptic-dusk-46189.herokuapp.com/' : 'http://localhost:5000',
@@ -40,7 +41,8 @@ const config: SocketIoConfig = {
 		SharedModule,
 		StoreModule.forRoot({
 			categoriesPage: categoriesReducer,
-			userPage: userReducer
+			userPage: userReducer,
+			chatPage: chatReducer
 		}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 10

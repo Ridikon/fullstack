@@ -6,7 +6,7 @@ const errorHandler = require('../utils/errorHandler');
 module.exports.getConversations = function (req, res, next) {
     // Only return one message from each conversation to display as snippet
     Conversation.find({ participants: req.user._id })
-        .select('_id authorName')
+        .select('_id favorite')
         .exec(function (err, conversations) {
             if (err) {
                 res.send({ error: err });
@@ -25,11 +25,14 @@ module.exports.getConversations = function (req, res, next) {
                             select: "name"
                         })
                         .exec(function (err, message) {
+                            message[0]['favorite'] = conversation.favorite;
+
                             if (err) {
                                 res.send({ error: err });
                                 return next(err);
                             }
                             fullConversations.push(message);
+
                             if (fullConversations.length === conversations.length) {
                                 return res.status(200).json({ conversations: fullConversations });
                             }
@@ -78,6 +81,10 @@ module.exports.newConversation = async function (req, res, next) {
             conversationAuthor: {
                 id: author._id,
                 name: author.name
+            },
+            favorite: {
+                author: false,
+                recipient: false
             }
         });
 
@@ -93,7 +100,8 @@ module.exports.newConversation = async function (req, res, next) {
                 conversationAuthor: newConversation.conversationAuthor,
                 conversationRecipient: req.params.recipient,
                 body: req.body.message,
-                author: req.user._id
+                author: req.user._id,
+                favorite: newConversation.favorite
             });
 
             message.save(function (err, newMessage) {
@@ -110,7 +118,6 @@ module.exports.newConversation = async function (req, res, next) {
     } catch (e) {
         errorHandler(res, e)
     }
-
 };
 
 module.exports.sendReply = function (req, res, next) {
@@ -120,7 +127,8 @@ module.exports.sendReply = function (req, res, next) {
         conversationAuthor: req.body.conversationAuthor,
         conversationRecipient: req.body.conversationRecipient,
         body: req.body.message,
-        author: req.user._id
+        author: req.user._id,
+        favorite: req.body.favorite
     });
 
     reply.save(function (err, sentReply) {
@@ -134,18 +142,35 @@ module.exports.sendReply = function (req, res, next) {
     });
 };
 
+module.exports.updateConversation = async function (req, res) {
+    const updated = {
+        favorite: req.body.favorite
+    };
+
+    try {
+        const conversation = await Conversation.findOneAndUpdate(
+            { _id: req.params.conversationId },
+            { $set: updated },
+            { new: true }
+        );
+        res.status(200).json(conversation);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+};
+
 // DELETE Route to Delete Conversation
 module.exports.deleteConversation = function (req, res, next) {
     Conversation.findOneAndRemove(
         { '_id': req.params.conversationId }, function (err) {
-        if (err) {
-            res.send({ error: err });
-            return next(err);
-        }
+            if (err) {
+                res.send({ error: err });
+                return next(err);
+            }
 
-        res.status(200).json({ message: 'Conversation removed!' });
-        return next();
-    });
+            res.status(200).json({ message: 'Conversation removed!' });
+            return next();
+        });
 };
 
 // PUT Route to Update Message

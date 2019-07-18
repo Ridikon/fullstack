@@ -23,6 +23,10 @@ export interface Conversation {
 		name: string;
 		_id: string;
 	};
+	favorite?: {
+		author: boolean,
+		recipient: boolean
+	},
 	conversationAuthor: {
 		name: string;
 		id: string;

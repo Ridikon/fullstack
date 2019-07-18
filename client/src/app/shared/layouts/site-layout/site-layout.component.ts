@@ -4,9 +4,9 @@ import {
 	ElementRef, OnDestroy, OnInit,
 	ViewChild
 } from '@angular/core';
-import {Router} from "@angular/router";
-import {select, State} from "@ngrx/store";
-import {switchMap} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
+import {select, Store} from "@ngrx/store";
+import {switchMap, tap} from "rxjs/operators";
 import {Socket} from "ngx-socket-io";
 
 import {AuthService} from "../../services/auth.service";
@@ -14,6 +14,7 @@ import {MaterialInstance, MaterialService} from "../../classes/material.service"
 import {AppState} from "../../redux/app.state";
 import {UsersService} from "../../services/users.service";
 import {CategoriesService} from "../../services/categories.service";
+import {GetUsers, NewUser} from "../../redux/user/user.action";
 
 @Component({
 	selector: 'app-site-layout',
@@ -26,8 +27,8 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 
 	sidebarInstance: MaterialInstance;
 	isDesktopWidth: boolean;
-	user$ = this.state.pipe(select('userPage'));
-	audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
+	user$ = this.store.pipe(select('userPage'));
+	audio = new Audio('../../assets/audio/ICQ-bip.mp3');
 
 	links = [
 		{url: '/profile', name: 'Профіль'},
@@ -40,7 +41,8 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 	constructor(
 		private auth: AuthService,
 		private router: Router,
-		private state: State<AppState>,
+		private route: ActivatedRoute,
+		private store: Store<AppState>,
 		private usersService: UsersService,
 		private categoriesService: CategoriesService,
 		private socket: Socket) {
@@ -48,6 +50,11 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		const userId = localStorage.getItem('auth-id');
+
+		this.route.data.subscribe(
+			data => {
+				this.store.dispatch(new GetUsers(data.users));
+			})
 
 		this.isDesktopWidth = this.isDesktop();
 
@@ -71,7 +78,8 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 
 		this.socket.on('newUser', data => {
 			if (this.auth.permission.getValue() === 'super') {
-				MaterialService.toast(`Зареєструвався новий користувач з ім'ям ${data.name}`)
+				this.store.dispatch(new NewUser(data.user));
+				MaterialService.toast(`Зареєструвався новий користувач з ім'ям ${data.user.name}`);
 			}
 		});
 

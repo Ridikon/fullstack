@@ -10,6 +10,16 @@ const MessageSchema = new Schema({
             type: String,
             required: true
         },
+        favorite: {
+            author: {
+                type: Boolean,
+                required: true
+            },
+            recipient: {
+                type: Boolean,
+                required: true
+            }
+        },
         author: {
             type: Schema.Types.ObjectId,
             ref: 'users'

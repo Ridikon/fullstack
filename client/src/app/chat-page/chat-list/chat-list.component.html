@@ -43,6 +43,7 @@
 						</button>
 					</div>
 				</div>
+
 				<div *ngIf="(conversations$ || []).length">
 					<li
 						class="chat-user chat-user_hovered"
@@ -55,8 +56,8 @@
 							<span class="title">{{setConversationName(conversation)}}</span>
 						</div>
 
-						<div class="secondary-content">
-							<i class="material-icons">grade</i>
+						<div class="secondary-content" *ngIf="conversation.favorite[getSender(conversation)]">
+							<i class="material-icons">star</i>
 						</div>
 					</li>
 				</div>
@@ -79,7 +80,7 @@
 				</div>
 
 				<div class="secondary-content">
-					<i class="material-icons">grade</i>
+					<i class="material-icons" (click)="triggerFavorite()">{{selectedConversation.favorite[getSender(selectedConversation)] ? 'star' : 'star_border'}}</i>
 					<i class="material-icons" (click)="onDelete()">delete</i>
 					<i class="material-icons">more_vert</i>
 				</div>

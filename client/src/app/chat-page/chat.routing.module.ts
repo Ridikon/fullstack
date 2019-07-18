@@ -5,6 +5,7 @@ import {ChatPageComponent} from "./chat-page.component";
 import {AuthGuard} from "../shared/classes/auth.guard";
 import {ChatListComponent} from "./chat-list/chat-list.component";
 import {ProfileResolverService} from "../shared/resolvers/profile-resolver.service";
+import {ConversationsResolverService} from "../shared/resolvers/conversations-resolver.service";
 
 const chatRoutes: Routes = [
 	{
@@ -17,7 +18,7 @@ const chatRoutes: Routes = [
 				redirectTo: '',
 				pathMatch: 'full',
 				component: ChatListComponent,
-				resolve: {user: ProfileResolverService}
+				resolve: {user: ProfileResolverService, conversations: ConversationsResolverService}
 			}
 		]
 	}

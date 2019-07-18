@@ -1,13 +1,16 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
-import {map, switchMap, take, takeUntil, tap} from "rxjs/operators";
+import {switchMap, take, takeUntil, tap} from "rxjs/operators";
 import {EMPTY, Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {select, Store} from "@ngrx/store";
 
 import {UsersService} from "../../shared/services/users.service";
 import {ChatService} from "../../shared/services/chat.service";
 import {Conversation, User} from "../../shared/interfaces";
 import {MaterialInstance, MaterialService} from "../../shared/classes/material.service";
+import {AppState} from "../../shared/redux/app.state";
+import {DeleteConversation, NewConversation} from "../../shared/redux/chat/chat.action";
 
 @Component({
 	selector: 'app-chat-list',
@@ -31,10 +34,12 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 	activeConversationsId: string[] = [];
 	authorId = '';
 	isLoad = false;
+	favoriteTab: boolean;
 
 	constructor(
 		private usersService: UsersService,
 		private chatService: ChatService,
+		private store: Store<AppState>,
 		private socket: Socket,
 		private route: ActivatedRoute
 	) {}
@@ -46,24 +51,31 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			.pipe(take(1))
 			.subscribe(
 				data => {
+					this.isLoad = false;
 					this.myName = data.user.name;
 					this.authorId = data.user._id;
 				},
 				error => MaterialService.toast(error.error.message));
 
-		this.chatService.getConversations()
-			.pipe(
-				takeUntil(this.unsubscribe$),
-				map(conversations => {
-					this.isLoad = false;
-					this.conversations$ = conversations;
-					this.selectedConversation = conversations.find(item => item.conversationId === this.getConversationId());
-					this.activeConversationsId = conversations.map(conversation => conversation.conversationRecipient);
-				}),
-				switchMap(() => this.usersService.fetch()),
-				tap(users => this._setUsers(users))
-			)
-			.subscribe();
+		this.store.pipe(select('userPage'))
+			.pipe(takeUntil(this.unsubscribe$))
+			.subscribe(
+				data => this._setUsers(data['users'])
+			);
+
+		this.store.pipe(select('chatPage'))
+			.pipe(takeUntil(this.unsubscribe$))
+			.subscribe(
+				data => {
+					let sortFavorite = (a, b) => {
+						return a.favorite[this.getSender(a)] - b.favorite[this.getSender(b)]
+					};
+
+					this.conversations$ = data.conversations.sort(sortFavorite).reverse();
+					this.selectedConversation = this.conversations$.find(item => item.conversationId === this.getConversationId());
+					this.activeConversationsId = this.conversations$.map(conversation => conversation.conversationRecipient);
+				}
+			);
 
 		if (this.getConversationId()) {
 			this.chatService.getConversation(this.getConversationId())
@@ -83,7 +95,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		this.socket.on('newConversation', data => {
 			if (this.isCurrentListener(data.conversation)) {
-				this.conversations$.push(data.conversation);
+				this.store.dispatch(new NewConversation(data.conversation));
 
 				if (!this.selectedConversation) {
 					this.selectConversation(data.conversation);
@@ -96,9 +108,8 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 		});
 
 		this.socket.on('deleteConversation', data => {
-
 			if (this.isCurrentListener(data.deletedConversation)) {
-				this.conversations$ = this.conversations$.filter(conversation => conversation.conversationId !== data.deletedConversation.conversationId)
+				this.store.dispatch(new DeleteConversation(data.deletedConversation.conversationId));
 
 				if (this.conversations$.length) {
 					this.selectedConversation = this.conversations$[0];
@@ -109,16 +120,13 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 					localStorage.removeItem('selectedConversationId');
 				}
 
-				this.usersService.fetch()
-					.pipe(
-						takeUntil(this.unsubscribe$)
-					).subscribe(
-						users => {
-							this.users$ = users;
-							this.activeConversationsId = this.activeConversationsId.filter(id => id !== data.deletedConversation.conversationRecipient);
-							this._setUsers(this.users$)
-						}
-				)
+				this.activeConversationsId = this.activeConversationsId.filter(id => id !== data.deletedConversation.conversationRecipient);
+
+				this.store.pipe(select('userPage'))
+					.pipe(takeUntil(this.unsubscribe$))
+					.subscribe(
+						data => this._setUsers(data['users'])
+					);
 			}
 		})
 	}
@@ -150,6 +158,31 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 		} else {
 			this.chatSidebarRef.nativeElement.style.left = '-120%';
 		}
+	}
+
+	triggerFavorite() {
+		const id = this.selectedConversation.conversationId;
+		const favorite = this.selectedConversation.favorite;
+
+		if (this.authorId === this.selectedConversation.conversationRecipient) {
+			favorite.recipient = !this.selectedConversation.favorite.recipient
+		} else {
+			favorite.author = !this.selectedConversation.favorite.author
+		}
+
+		this.chatService.setFavoriteConversation(id, favorite)
+			.pipe(
+				takeUntil(this.unsubscribe$)
+			)
+			.subscribe()
+	}
+
+	getSender(conversation: Conversation) {
+		if (conversation.conversationAuthor.id === this.authorId) {
+			return 'author'
+		}
+
+		return 'recipient';
 	}
 
 	setConversationName(conversation: Conversation) {
@@ -184,12 +217,11 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 				switchMap(() => this.chatService.getConversations())
 			)
 			.subscribe(
-				(response) => {
-					this.selectedConversation = response.find(item => item.conversationId === this.getConversationId());
+				() => {
+					this.selectedConversation = this.conversations$.find(item => item.conversationId === this.getConversationId());
 					this.socket.emit('newConversation', {conversation: this.selectedConversation});
 					this.activeConversationsId.push(this.selectedConversation.conversationRecipient);
 					this.users$ = this.users$.filter(user => user._id !== this.selectedConversation.conversationRecipient);
-					this.conversations$ = response;
 					this.modal.close();
 					this.sidebarTrigger();
 				}
@@ -228,7 +260,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			.subscribe(
 				response => {
 					this.socket.emit('message', {message: response});
-					this.messages.push(response)
+					this.messages.push(response);
 					this._setFirstMessages(this.messages);
 					this.message = '';
 				}
@@ -236,15 +268,17 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	_setFirstMessages(messages) {
-		this.messages = messages.map((message, i, arr) => {
-			if (i === 0) {
-				message['isFirst'] = true;
-				return message;
-			}
+		if (messages) {
+			this.messages = messages.map((message, i, arr) => {
+				if (i === 0) {
+					message['isFirst'] = true;
+					return message;
+				}
 
-			message['isFirst'] = (arr[i - 1].author._id || arr[i - 1].author) !== (message.author._id || message.author);
-			return message;
-		})
+				message['isFirst'] = (arr[i - 1].author._id || arr[i - 1].author) !== (message.author._id || message.author);
+				return message;
+			})
+		}
 	}
 
 	isAuthorMessage(message) {
@@ -257,30 +291,25 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.chatService.deleteConversation(id)
 			.pipe(
 				takeUntil(this.unsubscribe$),
-				tap(response => {
+				tap(() => {
 					this.socket.emit('deleteConversation', {deletedConversation: this.selectedConversation});
 				}),
-				switchMap(() => this.usersService.fetch()),
-				tap(users => {
+				switchMap(() => this.store.pipe(select('userPage'))),
+				tap(data => {
 					this.activeConversationsId = this.activeConversationsId.filter(id => id !== this.selectedConversation.conversationRecipient);
+					this._setUsers(data['users']);
 
-					this._setUsers(users)
-				}),
-				switchMap(() => this.chatService.getConversations()),
-				tap(
-					(response) => {
-						this.conversations$ = response;
+					this.store.dispatch(new DeleteConversation(id));
 
-						if (this.conversations$.length) {
-							this.selectedConversation = this.conversations$[0];
-							this.setConversationId(this.selectedConversation.conversationId)
-						} else {
-							this.selectedConversation = null;
-							localStorage.removeItem('selectedConversationId');
-							this.messages = [];
-						}
+					if (this.conversations$.length) {
+						this.selectedConversation = this.conversations$[0];
+						this.setConversationId(this.selectedConversation.conversationId)
+					} else {
+						this.selectedConversation = null;
+						localStorage.removeItem('selectedConversationId');
+						this.messages = [];
 					}
-				),
+				}),
 				switchMap(() => {
 					if (this.selectedConversation) {
 						return this.chatService.getConversation(this.selectedConversation.conversationId)

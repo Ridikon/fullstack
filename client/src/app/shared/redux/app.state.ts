@@ -1,10 +1,14 @@
-import {Categories, User} from "../interfaces";
+import {Categories, Conversation, User} from "../interfaces";
 
 export interface AppState {
 	categoriesPage: {
 		categories: Categories
 	},
 	userPage: {
-		user: User
+		user: User,
+		users: User[]
+	},
+	chatPage: {
+		conversations: Conversation[]
 	}
 }
