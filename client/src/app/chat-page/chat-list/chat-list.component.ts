@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
-import {debounceTime, switchMap, take, takeUntil, tap} from "rxjs/operators";
+import {switchMap, take, takeUntil, tap} from "rxjs/operators";
 import {EMPTY, Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {select, Store} from "@ngrx/store";
@@ -34,7 +34,6 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 	activeConversationsId: string[] = [];
 	authorId = '';
 	isLoad = false;
-	favoriteTab: boolean;
 
 	constructor(
 		private usersService: UsersService,
@@ -255,8 +254,8 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 	onSend() {
 		this.chatService.sendReply(this.selectedConversation, this.message)
 			.pipe(
-				takeUntil(this.unsubscribe$),
-				debounceTime(500)
+				take(1),
+				takeUntil(this.unsubscribe$)
 			)
 			.subscribe(
 				response => {

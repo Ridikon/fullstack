@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea6eabed-7919-4de0-b833-4871859bc08f" name="Default Changelist" comment="Merge remote-tracking branch 'remotes/origin/Favorites_chats'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+    <list default="true" id="ea6eabed-7919-4de0-b833-4871859bc08f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts" afterDir="false" />
     </list>
@@ -30,8 +30,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="258" column="32" selection-start-line="258" selection-start-column="32" selection-end-line="258" selection-end-column="32" />
+            <state relative-caret-position="268">
+              <caret line="259" column="43" lean-forward="true" selection-start-line="259" selection-start-column="43" selection-end-line="259" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#97#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -534,7 +537,21 @@
       <option name="project" value="LOCAL" />
       <updated>1563437414728</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fixed sending message multiple times">
+      <created>1563441697592</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1563441697592</updated>
+    </task>
+    <task id="LOCAL-00030" summary="set delay time to 500 ms">
+      <created>1563442667175</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1563442667175</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -543,7 +560,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="645468000" />
+    <option name="totallyTimeSpent" value="647423000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -556,9 +573,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1292" height="1047" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23457792" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23457792" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -571,7 +587,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49837664" weight="0.32932165" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4989339" visible="true" weight="0.26258206" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4989339" visible="true" weight="0.26258206" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5016234" side_tool="true" weight="0.32932165" />
       <window_info anchor="bottom" id="TypeScript" order="12" weight="0.32936078" />
       <window_info anchor="bottom" id="Messages" order="13" />
@@ -652,8 +668,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/client" />
     </ignored-roots>
-    <MESSAGE value="check error status" />
-    <MESSAGE value="log error status" />
     <MESSAGE value="changed keys URI" />
     <MESSAGE value="removed loader when error" />
     <MESSAGE value="fixed redirect to categories" />
@@ -677,7 +691,9 @@
     <MESSAGE value="fixed set first message" />
     <MESSAGE value="sending message when press enter key" />
     <MESSAGE value="Merge remote-tracking branch 'remotes/origin/Favorites_chats'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'remotes/origin/Favorites_chats'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="fixed sending message multiple times" />
+    <MESSAGE value="set delay time to 500 ms" />
+    <option name="LAST_COMMIT_MESSAGE" value="set delay time to 500 ms" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/app/categories-page/categories-page.component.html">
@@ -1066,8 +1082,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/chat-page/chat-list/chat-list.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="258" column="32" selection-start-line="258" selection-start-column="32" selection-end-line="258" selection-end-column="32" />
+        <state relative-caret-position="268">
+          <caret line="259" column="43" lean-forward="true" selection-start-line="259" selection-start-column="43" selection-end-line="259" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#97#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
