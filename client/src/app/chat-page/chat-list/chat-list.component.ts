@@ -256,7 +256,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.chatService.sendReply(this.selectedConversation, this.message)
 			.pipe(
 				takeUntil(this.unsubscribe$),
-				debounceTime(250)
+				debounceTime(500)
 			)
 			.subscribe(
 				response => {
