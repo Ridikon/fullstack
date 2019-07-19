@@ -73,6 +73,8 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 					this.conversations$ = data.conversations.sort(sortFavorite).reverse();
 					this.selectedConversation = this.conversations$.find(item => item.conversationId === ChatListComponent.getConversationId());
 					this.activeConversationsId = this.conversations$.map(conversation => conversation.conversationRecipient);
+
+					this._setUsers(this.users$);
 				}
 			);
 
@@ -220,7 +222,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 					this.selectedConversation = this.conversations$.find(item => item.conversationId === ChatListComponent.getConversationId());
 					this.socket.emit('newConversation', {conversation: this.selectedConversation});
 					this.activeConversationsId.push(this.selectedConversation.conversationRecipient);
-					this.users$ = this.users$.filter(user => user._id !== this.selectedConversation.conversationRecipient);
+					this._setUsers(this.users$);
 					this.modal.close();
 					this.sidebarTrigger();
 				}
