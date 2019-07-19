@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
-import {switchMap, take, takeUntil, tap} from "rxjs/operators";
+import {switchMap, take, takeLast, takeUntil, tap} from "rxjs/operators";
 import {EMPTY, Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {select, Store} from "@ngrx/store";
@@ -71,19 +71,19 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 					};
 
 					this.conversations$ = data.conversations.sort(sortFavorite).reverse();
-					this.selectedConversation = this.conversations$.find(item => item.conversationId === this.getConversationId());
+					this.selectedConversation = this.conversations$.find(item => item.conversationId === ChatListComponent.getConversationId());
 					this.activeConversationsId = this.conversations$.map(conversation => conversation.conversationRecipient);
 				}
 			);
 
-		if (this.getConversationId()) {
-			this.chatService.getConversation(this.getConversationId())
+		if (ChatListComponent.getConversationId()) {
+			this.chatService.getConversation(ChatListComponent.getConversationId())
 				.pipe(takeUntil(this.unsubscribe$))
 				.subscribe(response => this._setFirstMessages(response))
 		}
 
 		this.socket.on('message', data => {
-			if (this.getConversationId() === data.message.conversationId) {
+			if (ChatListComponent.getConversationId() === data.message.conversationId) {
 
 				if (this.isCurrentListener(data.message)) {
 					this.messages.push(data.message);
@@ -112,7 +112,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 				if (this.conversations$.length) {
 					this.selectedConversation = this.conversations$[0];
-					this.setConversationId(this.selectedConversation.conversationId)
+					ChatListComponent.setConversationId(this.selectedConversation.conversationId)
 				} else {
 					this.messages = [];
 					this.selectedConversation = null;
@@ -199,7 +199,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	isActive(conversation: Conversation) {
-		return conversation.conversationId === this.getConversationId();
+		return conversation.conversationId === ChatListComponent.getConversationId();
 	}
 
 	selectUser(user: User) {
@@ -207,7 +207,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			.pipe(
 				takeUntil(this.unsubscribe$),
 				tap(response => {
-					this.setConversationId(response.conversationId);
+					ChatListComponent.setConversationId(response.conversationId);
 				}),
 				switchMap((response) => this.chatService.getConversation(response.conversationId)),
 				tap(response => {
@@ -217,7 +217,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			)
 			.subscribe(
 				() => {
-					this.selectedConversation = this.conversations$.find(item => item.conversationId === this.getConversationId());
+					this.selectedConversation = this.conversations$.find(item => item.conversationId === ChatListComponent.getConversationId());
 					this.socket.emit('newConversation', {conversation: this.selectedConversation});
 					this.activeConversationsId.push(this.selectedConversation.conversationRecipient);
 					this.users$ = this.users$.filter(user => user._id !== this.selectedConversation.conversationRecipient);
@@ -227,18 +227,18 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 			)
 	}
 
-	setConversationId(id: string) {
+	static setConversationId(id: string) {
 		localStorage.setItem('selectedConversationId', id)
 	}
 
-	getConversationId() {
+	static getConversationId() {
 		return localStorage.getItem('selectedConversationId');
 	}
 
 	selectConversation(conversation: Conversation) {
 		this.selectedConversation = conversation;
 
-		this.setConversationId(this.selectedConversation.conversationId);
+		ChatListComponent.setConversationId(this.selectedConversation.conversationId);
 		this.chatService.getConversation(this.selectedConversation.conversationId)
 			.pipe(
 				takeUntil(this.unsubscribe$)
@@ -254,17 +254,16 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 	onSend() {
 		this.chatService.sendReply(this.selectedConversation, this.message)
 			.pipe(
-				take(1),
-				takeUntil(this.unsubscribe$)
-			)
-			.subscribe(
-				response => {
+				takeUntil(this.unsubscribe$),
+				takeLast(1),
+				tap(response => {
 					this.socket.emit('message', {message: response});
 					this.messages.push(response);
 					this._setFirstMessages(this.messages);
 					this.message = '';
-				}
+				})
 			)
+			.subscribe()
 	}
 
 	_setFirstMessages(messages) {
@@ -303,7 +302,7 @@ export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 					if (this.conversations$.length) {
 						this.selectedConversation = this.conversations$[0];
-						this.setConversationId(this.selectedConversation.conversationId)
+						ChatListComponent.setConversationId(this.selectedConversation.conversationId)
 					} else {
 						this.selectedConversation = null;
 						localStorage.removeItem('selectedConversationId');

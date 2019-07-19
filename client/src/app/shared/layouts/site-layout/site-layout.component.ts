@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
-import {switchMap, tap} from "rxjs/operators";
+import {switchMap} from "rxjs/operators";
 import {Socket} from "ngx-socket-io";
 
 import {AuthService} from "../../services/auth.service";
@@ -54,9 +54,9 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 		this.route.data.subscribe(
 			data => {
 				this.store.dispatch(new GetUsers(data.users));
-			})
+			});
 
-		this.isDesktopWidth = this.isDesktop();
+		this.isDesktopWidth = SiteLayoutComponent.isDesktop();
 
 		if (this.auth.permission.getValue() !== 'user') {
 			this.links.push({url: '/categories', name: 'Ассортимент'})
@@ -96,24 +96,24 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 		});
 	}
 
-	isCurrentReceiver(data, id) {
+	static isCurrentReceiver(data, id) {
 		return ((data.conversationRecipient === id) || (data.conversationAuthor.id === id));
 	}
 
 	newSocketAction(data, id) {
-		if (data.hasOwnProperty('conversation') && this.isCurrentReceiver(data.conversation, id)) {
+		if (data.hasOwnProperty('conversation') && SiteLayoutComponent.isCurrentReceiver(data.conversation, id)) {
 			const name = data.conversation.conversationAuthor.name;
 			MaterialService.toast(`Користувач ${name} створив з вами розмову`);
 			this.audio.play();
 		}
 
-		if (data.hasOwnProperty('message') && this.isCurrentReceiver(data.message, id)) {
+		if (data.hasOwnProperty('message') && SiteLayoutComponent.isCurrentReceiver(data.message, id)) {
 			const name = data.message.conversationRecipient === id ? data.message.conversationAuthor.name : data.message.conversationName;
 			MaterialService.toast(`Користувач ${name}, надіслав вам повідомлення`);
 			this.audio.play();
 		}
 
-		if (data.hasOwnProperty('deletedConversation') && this.isCurrentReceiver(data.deletedConversation, id)) {
+		if (data.hasOwnProperty('deletedConversation') && SiteLayoutComponent.isCurrentReceiver(data.deletedConversation, id)) {
 			const name = data.deletedConversation.conversationRecipient === id ? data.deletedConversation.conversationAuthor.name : data.deletedConversation.conversationName;
 			MaterialService.toast(`Користувач ${name} видалив розмову`);
 			this.audio.play();
@@ -134,7 +134,7 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 		}
 	}
 
-	isDesktop(): boolean {
+	static isDesktop(): boolean {
 		return window.document.activeElement.clientWidth > 992;
 	}
 
