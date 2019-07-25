@@ -132,6 +132,9 @@ export class SiteLayoutComponent implements AfterViewInit, OnInit, OnDestroy {
 		if (this.sidebarInstance) {
 			this.sidebarInstance.destroy();
 		}
+
+		this.auth.permission.next('');
+		this.auth.permission.complete();
 	}
 
 	static isDesktop(): boolean {
